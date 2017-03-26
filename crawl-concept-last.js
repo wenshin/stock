@@ -1,11 +1,7 @@
 const fs = require('fs');
 const request = require('request');
-const cheerio = require('cheerio');
-const iconv = require('iconv-lite');
-const info = require('./ths-base.json')
+const info = require('./base-info.json')
 
-
-// let $ = cheerio.load('<h2 class="title">Hello world</h2>')
 
 // http://www.iwencai.com/diag/concept-detail?conceptId=301558
 
@@ -34,43 +30,26 @@ function fetchConceptDetail(id) {
       } catch (err) {
         reject('获取结果失败', result);
       }
-      if (data) {
-        data.delta2 = getDelta(data, 2);
-        data.delta5 = getDelta(data, 5);
-        data.delta10 = getDelta(data, 10);
-        data.delta15 = getDelta(data, 15);
-      }
       resolve(data);
     });
   });
 }
 
 
-function getDelta(src, days) {
-  const dates = Object.keys(src.hq300Data);
-  const len = dates.length;
-  const lastDate = dates[len - 1];
-  const beforeDate = dates[len - 1 - days];
-  const last = src.conceptData[lastDate];
-  const last300 = src.hq300Data[lastDate];
-  const daysBefore = src.conceptData[beforeDate];
-  const daysBefore300 = src.hq300Data[beforeDate];
-  return last - daysBefore - (last300 - daysBefore300);
-}
-
 module.exports = fetchConceptDetail;
 
 
 const data = [];
+const concepts = info.concepts;
 let finishCount = 0;
 let cursor = 0;
 const timer = setInterval(() => {
-  const c = info.concepts[cursor];
+  const c = concepts[cursor];
+  console.log(`fetch ${c ? c.name : 'finish all'}`)
   if (!c) {
     clearInterval(timer);
     return;
   }
-  console.log(`fetch ${c.name}`)
   cursor++;
   fetchConceptDetail(c.id)
     .then(d => {
@@ -88,8 +67,8 @@ const timer = setInterval(() => {
 
 
 function writeFile() {
-  if (finishCount >= info.concepts.length) {
-    console.log('writing file')
+  if (finishCount >= concepts.length - 1) {
+    console.log(`writing file, get ${data.length} of ${concepts.length}`)
     fs.writeFileSync('concept-detail.js', 'module.exports = ' + JSON.stringify(data, null, 2));
   }
 }

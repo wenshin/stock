@@ -41,7 +41,6 @@ function parseData(bodyBuf) {
   }
 
   const body = iconv.decode(bodyBuf, 'gbk');
-  console.log('111111', body)
   const $ = cheerio.load(body);
   const list = [];
   $('.cate_items a').each((idx, elem) => {

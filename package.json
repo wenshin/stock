@@ -1,0 +1,19 @@
+{
+  "name": "stock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "concept-detail-0323.js",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "glob": "^7.1.1",
+    "iconv-lite": "^0.4.15",
+    "moment": "^2.18.1",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
