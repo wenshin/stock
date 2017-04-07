@@ -4,6 +4,34 @@ const {requestGBK} = require('./util');
 const {INDEXES} = require('./consts');
 
 
+function fetchConceptToday(date) {
+  requestGBK({url: 'http://q.10jqka.com.cn/gn/'})
+    .then(($) => {
+      const elem = $('#gnSection')[0];
+      const dateStr = date || moment().format('YYYYMMDD');
+      if (elem && elem.attribs && elem.attribs.value) {
+        const data = JSON.parse(elem.attribs.value);
+        for (const key of Object.keys(data)) {
+          const concept = data[key];
+          const increase = Number(concept['199112']);
+          const increasePercent = Number(concept.zfl);
+          const moneyTrack = Number(concept.zjjlr);
+          fs.appendFile(`./concept/${dateStr}.json`, JSON.stringify({
+            id: concept.cid,
+            clid: concept.platecode,
+            name: concept.platename,
+            increase,
+            increasePercent,
+            moneyTrack
+          }, null, 2) + ',\n', (err) => {
+            err && console.log(err)
+          });
+        }
+      }
+    });
+}
+
+
 function crawlIndexToday(date) {
   const dateStr = date || moment().format('YYYYMMDD');
   const filepath = `./indexes/${dateStr}.json`;
@@ -66,5 +94,6 @@ function fetchData(page, dateStr) {
     });
 }
 
-crawlIndustryToday();
-crawlIndexToday();
+// crawlIndustryToday();
+// crawlIndexToday();
+fetchConceptToday('20170407');

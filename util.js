@@ -1,13 +1,26 @@
 const cheerio = require('cheerio');
 const request = require('request');
 
+const headers = {
+  // Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  // 'Accept-Encoding': 'gzip, deflate, sdch',
+  // 'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4',
+  // Host: 'd.10jqka.com.cn',
+  // Referer: 'http://stock.10jqka.com.cn/market.shtml',
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+}
+
 let util;
 module.exports = util = {
   print(item, key, days) {
     days = days || [1, 3, 5, 10, 15, 20];
     let str = util.fixedStr(item.name);
     for (const day of days) {
-      str += util.fixedStr(item[`${key}${day}`].toFixed(2) + '%');
+      const value = item[`${key}${day}`] || 0;
+      if (!value) {
+        // console.error(`${item.name} "${key}${day}" 不存在`);
+      }
+      str += util.fixedStr(value.toFixed(2) + '%');
     }
     console.log(str);
   },
@@ -69,7 +82,7 @@ module.exports = util = {
 
   requestGBK(options) {
     return new Promise((resolve, reject) => {
-      request(Object.assign({encoding: null}, options), (err, res, bodyBuf) => {
+      request(Object.assign({encoding: null, headers}, options), (err, res, bodyBuf) => {
         if (err) {
           console.log(err)
           return reject(err);
@@ -83,7 +96,7 @@ module.exports = util = {
 
   requestJSON(options) {
     return new Promise((resolve, reject) => {
-      request(options, (err, res, body) => {
+      request(Object.assign({headers}, options), (err, res, body) => {
         if (err) {
           console.log(err);
           return reject(err);
@@ -95,7 +108,7 @@ module.exports = util = {
 
   requestJSONP(options) {
     return new Promise((resolve, reject) => {
-      request(options, (err, res, body) => {
+      request(Object.assign({headers}, options), (err, res, body) => {
         if (err) {
           console.log(err);
           return reject(err);
@@ -105,5 +118,9 @@ module.exports = util = {
         resolve(json && JSON.parse(json));
       });
     });
+  },
+
+  parseFileJSON(str) {
+    return JSON.parse('[' + str.replace(/,\n?$/, '') + ']');
   }
 };

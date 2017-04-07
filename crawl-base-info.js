@@ -1,5 +1,6 @@
 const fs = require('fs');
 const request = require('request');
+const {requestGBK, throttle} = require('./util');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 

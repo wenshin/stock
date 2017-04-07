@@ -1,11 +1,47 @@
 const fs = require('fs');
 const {throttle, requestJSONP} = require('./util');
 const {INDEXES} = require('./consts');
-const {industries} = require('./base-info.json');
+const {industries, concepts} = require('./ths-base.json');
+const conceptIdMaps = require('./concept-id.json');
 
-/**
- * @param  {String} type is 'tody' or 'last'
- */
+// 同花顺概念板块存在两套id，
+// 一套是 3开头的cid，concepts 中的id 为该id。
+// 一套是8开头id
+const cidLidMap = {};
+
+function crawlConceptLast() {
+  throttle({
+    data: concepts,
+    interval: 3000,
+    doIt(item) {
+      const id = getConceptId(item.id);
+      if (!id) {
+        return Promise.reject(`${item.id}-${item.name} 不存在查询数据ID`);
+      }
+      item.lid = id;
+      const id = item.id;
+      const url = `http://d.10jqka.com.cn/v4/line/bk_${id}/01/last.js`;
+      return requestJSONP(url);
+    },
+    cb(err, result) {
+      handleResult(err, result, 'concept');
+    }
+  });
+}
+
+function getConceptId(cid) {
+  let id = cidLidMap[cid];
+  if (!id) {
+    const idMap = conceptIdMaps.find(idMap => idMap.cid === cid);
+    if (idMap) {
+      id = idMap.id;
+      cidLidMap[cid] = id;;
+    }
+  }
+  return id;
+}
+
+
 function crawlIndexLast() {
   throttle({
     data: INDEXES,
@@ -36,7 +72,7 @@ function crawlIndustryLast() {
 }
 
 function handleResult(err, result, path) {
-  if (!err) {
+  if (!err && result && result.data && result.data.data) {
     const dataStr = result.data.data;
     const item = result.srcData;
     const data = dataStr.split(';');
@@ -54,6 +90,8 @@ function handleResult(err, result, path) {
       });
       cursor--;
     }
+  } else {
+    console.log(`No data ${result.srcData.id} ${result.srcData.name}`);
   }
 }
 
@@ -74,4 +112,5 @@ function calcIncrease(data, cursor) {
 }
 
 // crawlIndexLast();
-crawlIndustryLast();
+// crawlIndustryLast();
+crawlConceptLast();
