@@ -47,6 +47,7 @@ function crawlIndexToday(date) {
         $('.board-infos dl:nth-child(6) dd')
           .each((index, elem) => {
             const increase = Number(elem.children[0].data.replace('%', ''));
+            console.log('写入' + idx.name);
             fs.appendFile(`./indexes/${dateStr}.json`, JSON.stringify({
               id: idx.id,
               name: idx.name,
@@ -95,5 +96,5 @@ function fetchData(page, dateStr) {
 }
 
 // crawlIndustryToday();
-// crawlIndexToday();
-fetchConceptToday('20170407');
+crawlIndexToday();
+// fetchConceptToday();

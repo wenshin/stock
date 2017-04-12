@@ -2,7 +2,7 @@ const fs = require('fs');
 const glob = require('glob');
 const util = require('./util');
 
-const days = [1, 2, 3, 4, 5, 10, 20, 40];
+const days = [1, 2, 3, 10, 30, 90];
 const gFileCache = {};
 const gResultCache = {};
 
@@ -40,6 +40,10 @@ function printStrongWeak(dir, sortDay = 2) {
           if (dir !== 'indexes') {
             unique['delta' + day] = unique['increase' + day] -
               gResultCache.indexes['399300']['increase' + day];
+            console.log(111)
+            if (dir === 'concept' && item.name === '粤港澳自贸区') {
+              console.log(item)
+            }
           }
         }
         unsorted[item.id] = unique;
@@ -49,18 +53,18 @@ function printStrongWeak(dir, sortDay = 2) {
 
     const key = dir === 'indexes' ? 'increase' : 'delta';
     const sortKey = `${key}${sortDay}`;
-    const desc = util.sortByKey(Object.values(unsorted), sortKey);
-    const asc = util.sortByKey(Object.values(unsorted), sortKey, true);
+    const desc = util.sortByKey(Object.keys(unsorted).map(key => unsorted[key]), sortKey);
+    const asc = util.sortByKey(Object.keys(unsorted).map(key => unsorted[key]), sortKey, true);
 
     console.log(`\n\n${titlesByDir[dir]}`);
     console.log(`\n=========== ${sortDay}日降序\n`)
     console.log('，'.repeat(10) + util.getPrintHeader(days));
-    desc.slice(0, 15)
+    desc.slice(0, 20)
       .map((item) => util.print(item, key, days));
 
     console.log(`\n=========== ${sortDay}日升序\n`)
     console.log('，'.repeat(10) + util.getPrintHeader(days));
-    asc.slice(0, 15)
+    asc.slice(0, 20)
       .map((item) => util.print(item, key, days));
   });
 }
@@ -80,5 +84,7 @@ console.log(`
 炒股纪律：
 1. 大盘明显阻力位清仓止损观望
 2. k线形态 -> boll 位置 -> 主力买卖 -> 成交量 -> 有无解禁
-2. RSI 低于 30 大部分都有二次探底
+3. RSI 低于 30 大部分都有二次探底
+4. 当没有概念的时候，优质股，比如食品等快消股会受欢迎
+5. 雄安 -> 粤港澳弯区 -> ?
 `);
