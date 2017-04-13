@@ -24,7 +24,6 @@ function printStrongWeak(dir, sortDay = 2) {
   }
 
   const unsorted = gResultCache[dir] = gResultCache[dir] || {};
-
   glob(`./${dir}/*.json`, (err, files) => {
     let day = 1;
     const maxDay = Math.max(...days);
@@ -40,10 +39,6 @@ function printStrongWeak(dir, sortDay = 2) {
           if (dir !== 'indexes') {
             unique['delta' + day] = unique['increase' + day] -
               gResultCache.indexes['399300']['increase' + day];
-            console.log(111)
-            if (dir === 'concept' && item.name === '粤港澳自贸区') {
-              console.log(item)
-            }
           }
         }
         unsorted[item.id] = unique;
@@ -53,8 +48,8 @@ function printStrongWeak(dir, sortDay = 2) {
 
     const key = dir === 'indexes' ? 'increase' : 'delta';
     const sortKey = `${key}${sortDay}`;
-    const desc = util.sortByKey(Object.keys(unsorted).map(key => unsorted[key]), sortKey);
-    const asc = util.sortByKey(Object.keys(unsorted).map(key => unsorted[key]), sortKey, true);
+    const desc = util.sortByKey(Object.keys(unsorted).map(id => unsorted[id]), sortKey);
+    const asc = util.sortByKey(Object.keys(unsorted).map(id => unsorted[id]), sortKey, true);
 
     console.log(`\n\n${titlesByDir[dir]}`);
     console.log(`\n=========== ${sortDay}日降序\n`)

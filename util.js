@@ -35,8 +35,8 @@ module.exports = util = {
 
   sortByKey(data, key, isAsc) {
     return data.sort((a, b) => {
-      const av = a[key];
-      const bv = b[key];
+      const av = a[key] || 0;
+      const bv = b[key] || 0;
       if (av > bv) return isAsc ? 1 : -1;
       if (av === bv) return 0;
       if (av < bv) return isAsc ? -1 : 1;

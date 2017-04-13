@@ -11,6 +11,7 @@ function fetchConceptToday(date) {
       const dateStr = date || moment().format('YYYYMMDD');
       if (elem && elem.attribs && elem.attribs.value) {
         const data = JSON.parse(elem.attribs.value);
+        console.log('写入概念数据');
         for (const key of Object.keys(data)) {
           const concept = data[key];
           const increase = Number(concept['199112']);
@@ -32,7 +33,7 @@ function fetchConceptToday(date) {
 }
 
 
-function crawlIndexToday(date) {
+function crawlIndexToday(date, indexes = INDEXES) {
   const dateStr = date || moment().format('YYYYMMDD');
   const filepath = `./indexes/${dateStr}.json`;
   try {
@@ -40,7 +41,7 @@ function crawlIndexToday(date) {
   } catch (err) {
     console.log(err);
   }
-  for (const idx of INDEXES) {
+  for (const idx of indexes) {
     const url = `http://q.10jqka.com.cn/zs/detail/code/${idx.id}`;
     requestGBK({url})
       .then(($) => {
@@ -96,5 +97,5 @@ function fetchData(page, dateStr) {
 }
 
 // crawlIndustryToday();
-crawlIndexToday();
+crawlIndexToday()
 // fetchConceptToday();
