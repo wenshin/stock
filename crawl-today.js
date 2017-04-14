@@ -97,5 +97,5 @@ function fetchData(page, dateStr) {
 }
 
 // crawlIndustryToday();
-crawlIndexToday()
-// fetchConceptToday();
+// crawlIndexToday()
+fetchConceptToday();
