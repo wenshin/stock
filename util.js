@@ -54,7 +54,7 @@ module.exports = util = {
         return;
       }
       const name = item.name || cursor;
-      console.log(`process ${name}, ${cursor}/${data.length}`)
+      console.log(`process ${name}, ${cursor + 1}/${data.length}`)
       cursor++;
 
       doIt(item)

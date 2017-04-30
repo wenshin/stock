@@ -9,22 +9,21 @@ const conceptIdMaps = require('./concept-id.json');
 // 一套是8开头id
 const cidLidMap = {};
 
-function crawlConceptLast() {
+function crawlConceptLast(limitPeriod = {}) {
   throttle({
     data: concepts,
     interval: 3000,
     doIt(item) {
-      const id = getConceptId(item.id);
+      let id = getConceptId(item.id);
       if (!id) {
         return Promise.reject(`${item.id}-${item.name} 不存在查询数据ID`);
       }
       item.lid = id;
-      const id = item.id;
       const url = `http://d.10jqka.com.cn/v4/line/bk_${id}/01/last.js`;
-      return requestJSONP(url);
+      return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'concept');
+      handleResult(err, result, 'concept', limitPeriod);
     }
   });
 }
@@ -35,43 +34,43 @@ function getConceptId(cid) {
     const idMap = conceptIdMaps.find(idMap => idMap.cid === cid);
     if (idMap) {
       id = idMap.id;
-      cidLidMap[cid] = id;;
+      cidLidMap[cid] = id;
     }
   }
   return id;
 }
 
 
-function crawlIndexLast() {
+function crawlIndexLast(limitPeriod = {}) {
   throttle({
     data: INDEXES,
     interval: 1000,
     doIt(item) {
       const url = `http://d.10jqka.com.cn/v4/line/zs_${item.id}/01/last.js`;
-      return requestJSONP(url);
+      return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'indexes');
+      handleResult(err, result, 'indexes', limitPeriod);
     }
   });
 }
 
 
-function crawlIndustryLast() {
+function crawlIndustryLast(limitPeriod = {}) {
   throttle({
     data: industries,
-    interval: 1000,
+    interval: 3000,
     doIt(item) {
       const url = `http://d.10jqka.com.cn/v4/line/bk_${item.id}/01/last.js`;
-      return requestJSONP(url);
+      return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'industry');
+      handleResult(err, result, 'industry', limitPeriod);
     }
   });
 }
 
-function handleResult(err, result, path) {
+function handleResult(err, result, path, limitPeriod) {
   if (!err && result && result.data && result.data.data) {
     const dataStr = result.data.data;
     const item = result.srcData;
@@ -80,13 +79,24 @@ function handleResult(err, result, path) {
     while(cursor >= 0) {
       const increase = calcIncrease(data, cursor);
       const date = data[cursor][0];
+      if (limitPeriod.start && Number(date) < limitPeriod.start
+        || limitPeriod.end && Number(date) > limitPeriod.end
+      ) {
+        cursor--;
+        continue;
+      }
       const filepath = `./${path}/${date}.json`;
+      // const filepath = `./test/${date}.json`;
       fs.appendFile(filepath, JSON.stringify({
         id: item.id,
         name: item.name,
         increase
       }, null, 2) + ',\n', (err) => {
-        err && console.log(err)
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(`写入${date}日，${item.name}`)
+        }
       });
       cursor--;
     }
@@ -112,5 +122,5 @@ function calcIncrease(data, cursor) {
 }
 
 // crawlIndexLast();
-// crawlIndustryLast();
-crawlConceptLast();
+// crawlIndustryLast({start: 20170427, end: 20170427});
+crawlConceptLast({start: 20170427, end: 20170427});
