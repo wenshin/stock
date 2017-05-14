@@ -96,6 +96,6 @@ function fetchData(page, dateStr) {
     });
 }
 
-crawlIndustryToday('20170428');
-// crawlIndexToday('20170428')
-// fetchConceptToday('20170428');
+// crawlIndustryToday('20170512');
+// crawlIndexToday('20170512')
+// fetchConceptToday('20170512');

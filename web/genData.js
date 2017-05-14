@@ -1,22 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
+const util = require('../util');
 
-const DEFAULT_PERIOD = 180;
+const DEFAULT_PERIOD = 90;
 const gFileCache = {};
 const gResultCache = {};
 
 const json = {
   dates: [],
-  indexes: {
-  },
-  industry: {
-  },
-  concept: {
-  }
+  indexes: [],
+  industry: [],
+  concept: []
 };
 
-function genData(dir, sortDay = 2) {
+function genData(dir) {
   function getData(filepath) {
     let data = gFileCache[filepath];
     if (!data) {
@@ -29,25 +27,31 @@ function genData(dir, sortDay = 2) {
 
   const unsorted = gResultCache[dir] = gResultCache[dir] || {};
 
-  glob(`./${dir}/*.json`, (err, files) => {
-    let day = DEFAULT_PERIOD;
-    while(day >= 0) {
-      const filepath = files[day];
+  glob(`../${dir}/*.json`, (err, files) => {
+    const dates = [];
+    for (const filepath of files) {
       if (!filepath) break;
+      const {name: date} = path.parse(filepath);
       const data = getData(filepath);
       for (const item of data) {
-        let unique = unsorted[item.id] || item;
-        unique.increaseTotal = item.increase + (unique.increaseTotal || 0);
-        if (days.indexOf(day) > -1) {
-          unique['increase' + day] = unique.increaseTotal;
-          if (dir !== 'indexes') {
-            unique['delta' + day] = unique['increase' + day] -
-              gResultCache.indexes['399300']['increase' + day];
-          }
-        }
+        const unique = unsorted[item.id] || {
+          id: item.id,
+          name: item.name,
+          data: []
+        };
+        unique.data.push(item.increase + (unique.data[unique.data.length - 1] || 0));
         unsorted[item.id] = unique;
       }
-      day--;
+      dates.push(date);
+    }
+    json.dates = json.dates.length > dates.length ? json.dates : dates;
+    json[dir] = Object.keys(unsorted).map(key => unsorted[key]);
+    if (json.indexes.length && json.industry.length && json.concept.length) {
+      fs.writeFileSync('data.json', JSON.stringify(json, null, 2));
     }
   });
 }
+
+genData('indexes');
+genData('industry');
+genData('concept');

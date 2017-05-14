@@ -121,6 +121,6 @@ function calcIncrease(data, cursor) {
   return Number(percentage.toFixed(2));
 }
 
-// crawlIndexLast();
-// crawlIndustryLast({start: 20170427, end: 20170427});
-crawlConceptLast({start: 20170427, end: 20170427});
+crawlIndexLast({start: 20170429, end: 20170505});
+// crawlIndustryLast({start: 20170429, end: 20170505});
+// crawlConceptLast({start: 20170429, end: 20170505});

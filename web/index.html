@@ -3,43 +3,103 @@
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
+    <style type="text/css">
+        html, body {
+            width: 100%;
+        }
+    </style>
     <!-- 引入 echarts.js -->
     <script src="./jquery.min.js"></script>
     <script src="./echarts.js"></script>
 </head>
 <body>
+    <select id="select">
+        <option value="default">全部数据</option>
+        <option value="3">最近3天</option>
+        <option value="5" selected="selected">最近5天</option>
+        <option value="15">最近15天</option>
+        <option value="30">最近30天</option>
+        <option value="90">最近90天</option>
+    </select>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="indexes" style="width: 100%; height: 600px;"></div>
+    <div id="industry" style="width: 100%; height: 600px;"></div>
+    <div id="concept" style="width: 100%; height: 600px;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+        var indexChart = echarts.init(document.getElementById('indexes'));
+        var industryChart = echarts.init(document.getElementById('industry'));
+        var conceptChart = echarts.init(document.getElementById('concept'));
+        var select = document.getElementById('select');
+        var gData = {};
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量', '测试']
-            },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'line',
-                data: [5, 20, 36, 10, 10, 20]
-            }, {
-                name: '测试',
-                type: 'line',
-                data: [10, 5, 2, 1, 20, 10]
-            }]
-        };
+        select.addEventListener('change', (e) => {
+            const dataLength = Number(e.target.value);
+            renderChart(indexChart, gData.indexes, dataLength, {
+                title: {text: '指数对比'}
+            });
+            renderChart(industryChart, gData.industry, dataLength, {
+                title: {text: '行业对比'}
+            });
+        })
 
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+        fetch('./data.json')
+            .then(res => {
+                if (!res.ok) alert('fetch error!');
+                res.json().then(data => {
+                    gData = data;
+                    renderChart(indexChart, gData.indexes, 5, {
+                        title: {text: '指数对比'}
+                    });
+                    renderChart(industryChart, gData.industry, 5, {
+                        title: {text: '行业对比'}
+                    });
+                });
+            });
+
+        function changeDataStartDate(data, newLength) {
+            const newData = data.slice(data.length - newLength + 1);
+            const baseValue = data[data.length - newLength] || 0;
+            const result = newData.map(v => v - baseValue);
+            result.unshift(0);
+            return result;
+        }
+
+        function renderChart(chart, data, showLength, options) {
+            // 指定图表的配置项和数据
+            var option = Object.assign({
+                tooltip: {
+                    formatter(item) {
+                        return `${item.seriesName} ${item.data.toFixed(2)}%`;
+                    }
+                },
+                legend: {
+                    data: data.map(v => v.name)
+                },
+                xAxis: {data: showLength
+                    ? gData.dates.slice(gData.dates.length - showLength)
+                    : gData.dates},
+                yAxis: [
+                    {
+                        type : 'value',
+                        scale:true,
+                        axisLabel : {
+                            formatter: '{value} %'
+                        },
+                        splitLine: {
+                            show: false
+                        }
+                    }
+                ],
+                series: data.map(v => ({
+                    name: v.name,
+                    type: 'line',
+                    data: showLength ? changeDataStartDate(v.data, showLength) : v.data
+                }))
+            }, options);
+            chart.setOption(option);
+        }
     </script>
 </body>
 </html>
