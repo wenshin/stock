@@ -14,6 +14,16 @@ const json = {
   concept: []
 };
 
+const ignoreConcepts = [
+  '300841',
+  '301491',
+  '300870',
+  '301490',
+  '301715',
+  '301663',
+  '301546'
+];
+
 function genData(dir) {
   function getData(filepath) {
     let data = gFileCache[filepath];
@@ -34,6 +44,7 @@ function genData(dir) {
       const {name: date} = path.parse(filepath);
       const data = getData(filepath);
       for (const item of data) {
+        if (ignoreConcepts.indexOf(item.id) > -1) continue;
         const unique = unsorted[item.id] || {
           id: item.id,
           name: item.name,

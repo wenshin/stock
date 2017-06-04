@@ -20,10 +20,11 @@ function crawlConceptLast(limitPeriod = {}) {
       }
       item.lid = id;
       const url = `http://d.10jqka.com.cn/v4/line/bk_${id}/01/last.js`;
+      item.lastUrl = url;
       return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'concept', limitPeriod);
+      return handleResult(err, result, 'concept', limitPeriod);
     }
   });
 }
@@ -47,14 +48,14 @@ function crawlIndexLast(limitPeriod = {}) {
     interval: 1000,
     doIt(item) {
       const url = `http://d.10jqka.com.cn/v4/line/zs_${item.id}/01/last.js`;
+      item.lastUrl = url;
       return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'indexes', limitPeriod);
+      return handleResult(err, result, 'indexes', limitPeriod);
     }
   });
 }
-
 
 function crawlIndustryLast(limitPeriod = {}) {
   throttle({
@@ -62,10 +63,11 @@ function crawlIndustryLast(limitPeriod = {}) {
     interval: 3000,
     doIt(item) {
       const url = `http://d.10jqka.com.cn/v4/line/bk_${item.id}/01/last.js`;
+      item.lastUrl = url;
       return requestJSONP({url});
     },
     cb(err, result) {
-      handleResult(err, result, 'industry', limitPeriod);
+      return handleResult(err, result, 'industry', limitPeriod);
     }
   });
 }
@@ -100,8 +102,10 @@ function handleResult(err, result, path, limitPeriod) {
       });
       cursor--;
     }
+    return true;
   } else {
     console.log(`No data ${result.srcData.id} ${result.srcData.name}`);
+    return false;
   }
 }
 
@@ -121,6 +125,6 @@ function calcIncrease(data, cursor) {
   return Number(percentage.toFixed(2));
 }
 
-crawlIndexLast({start: 20170429, end: 20170505});
-// crawlIndustryLast({start: 20170429, end: 20170505});
-// crawlConceptLast({start: 20170429, end: 20170505});
+// crawlIndexLast({start: 20170524, end: 20170603});
+// crawlIndustryLast({start: 20170524, end: 20170603});
+crawlConceptLast({start: 20170524, end: 20170603});
