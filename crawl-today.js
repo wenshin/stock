@@ -96,6 +96,6 @@ function fetchData(page, dateStr) {
     });
 }
 
-crawlIndustryToday();
+// crawlIndustryToday();
 // crawlIndexToday()
-// fetchConceptToday();
+fetchConceptToday();
