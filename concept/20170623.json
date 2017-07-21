@@ -1,0 +1,1360 @@
+{
+  "id": "301537",
+  "clid": "885707",
+  "name": "参股新股",
+  "increase": 0.14,
+  "increasePercent": 63,
+  "moneyTrack": -14.1
+},
+{
+  "id": "301479",
+  "clid": "885536",
+  "name": "智能电视",
+  "increase": -0.06,
+  "increasePercent": 65,
+  "moneyTrack": 3.39
+},
+{
+  "id": "300167",
+  "clid": "885351",
+  "name": "触摸屏",
+  "increase": 0.15,
+  "increasePercent": 68,
+  "moneyTrack": -2.05
+},
+{
+  "id": "300841",
+  "clid": "885383",
+  "name": "新型城镇化",
+  "increase": 0.34,
+  "increasePercent": 68,
+  "moneyTrack": 5.18
+},
+{
+  "id": "300018",
+  "clid": "885623",
+  "name": "参股金融",
+  "increase": -0.03,
+  "increasePercent": 72,
+  "moneyTrack": -24.39
+},
+{
+  "id": "301491",
+  "clid": "885521",
+  "name": "粤港澳自贸区 ",
+  "increase": 7.6,
+  "increasePercent": 75,
+  "moneyTrack": -9.96
+},
+{
+  "id": "300008",
+  "clid": "885431",
+  "name": "新能源汽车",
+  "increase": 0.36,
+  "increasePercent": 76,
+  "moneyTrack": 2.35
+},
+{
+  "id": "300013",
+  "clid": "885566",
+  "name": "大飞机",
+  "increase": 1.01,
+  "increasePercent": 28,
+  "moneyTrack": -3.62
+},
+{
+  "id": "300018",
+  "clid": "885623",
+  "name": "参股保险",
+  "increase": 0.45,
+  "increasePercent": 72,
+  "moneyTrack": -0.77
+},
+{
+  "id": "300019",
+  "clid": "885603",
+  "name": "网络游戏",
+  "increase": -0.4,
+  "increasePercent": 68,
+  "moneyTrack": -12.25
+},
+{
+  "id": "300023",
+  "clid": "885406",
+  "name": "食品安全",
+  "increase": -0.02,
+  "increasePercent": 72,
+  "moneyTrack": -1.05
+},
+{
+  "id": "300037",
+  "clid": "885311",
+  "name": "智能电网",
+  "increase": -0.12,
+  "increasePercent": 72,
+  "moneyTrack": -6.98
+},
+{
+  "id": "300053",
+  "clid": "885433",
+  "name": "节能照明",
+  "increase": 0.19,
+  "increasePercent": 74,
+  "moneyTrack": -2.49
+},
+{
+  "id": "300061",
+  "clid": "885514",
+  "name": "京津冀一体化",
+  "increase": -0.04,
+  "increasePercent": 69,
+  "moneyTrack": -24.5
+},
+{
+  "id": "300073",
+  "clid": "885693",
+  "name": "振兴东北",
+  "increase": 0.24,
+  "increasePercent": 71,
+  "moneyTrack": -5.01
+},
+{
+  "id": "300075",
+  "clid": "885508",
+  "name": "禽流感",
+  "increase": 0.27,
+  "increasePercent": 90,
+  "moneyTrack": -2.18
+},
+{
+  "id": "300082",
+  "clid": "885700",
+  "name": "军工",
+  "increase": 0.36,
+  "increasePercent": 56,
+  "moneyTrack": -12.49
+},
+{
+  "id": "300084",
+  "clid": "885398",
+  "name": "煤化工",
+  "increase": 0.02,
+  "increasePercent": 73,
+  "moneyTrack": -0.75
+},
+{
+  "id": "300085",
+  "clid": "885551",
+  "name": "氟化工",
+  "increase": 0.15,
+  "increasePercent": 44,
+  "moneyTrack": -0.56
+},
+{
+  "id": "300105",
+  "clid": "885426",
+  "name": "海工装备",
+  "increase": -0.84,
+  "increasePercent": 47,
+  "moneyTrack": -5.55
+},
+{
+  "id": "300100",
+  "clid": "885620",
+  "name": "参股券商",
+  "increase": -0.09,
+  "increasePercent": 73,
+  "moneyTrack": -9.73
+},
+{
+  "id": "300127",
+  "clid": "885537",
+  "name": "3D打印",
+  "increase": -0.01,
+  "increasePercent": 71,
+  "moneyTrack": 0
+},
+{
+  "id": "300132",
+  "clid": "885554",
+  "name": "金融IC",
+  "increase": 0.32,
+  "increasePercent": 71,
+  "moneyTrack": -1.32
+},
+{
+  "id": "300134",
+  "clid": "885555",
+  "name": "PM2.5",
+  "increase": 0.01,
+  "increasePercent": 90,
+  "moneyTrack": -3.99
+},
+{
+  "id": "300157",
+  "clid": "885640",
+  "name": "草甘膦",
+  "increase": -0.07,
+  "increasePercent": 50,
+  "moneyTrack": -0.84
+},
+{
+  "id": "300158",
+  "clid": "885559",
+  "name": "超导",
+  "increase": 0.45,
+  "increasePercent": 57,
+  "moneyTrack": -1.3
+},
+{
+  "id": "300163",
+  "clid": "885662",
+  "name": "车联网",
+  "increase": -0.28,
+  "increasePercent": 74,
+  "moneyTrack": -4.66
+},
+{
+  "id": "300168",
+  "clid": "885413",
+  "name": "创投",
+  "increase": -0.31,
+  "increasePercent": 77,
+  "moneyTrack": -5.19
+},
+{
+  "id": "300186",
+  "clid": "885420",
+  "name": "电子商务",
+  "increase": 0.23,
+  "increasePercent": 72,
+  "moneyTrack": -5.36
+},
+{
+  "id": "300187",
+  "clid": "885732",
+  "name": "电子信息",
+  "increase": 0.01,
+  "increasePercent": 74,
+  "moneyTrack": 0.37
+},
+{
+  "id": "300188",
+  "clid": "885333",
+  "name": "移动支付",
+  "increase": 0.11,
+  "increasePercent": 72,
+  "moneyTrack": 1.99
+},
+{
+  "id": "300200",
+  "clid": "885641",
+  "name": "风电",
+  "increase": 0.2,
+  "increasePercent": 76,
+  "moneyTrack": -5.76
+},
+{
+  "id": "300210",
+  "clid": "885689",
+  "name": "高校",
+  "increase": -0.01,
+  "increasePercent": 77,
+  "moneyTrack": -1.38
+},
+{
+  "id": "300220",
+  "clid": "885570",
+  "name": "期货概念",
+  "increase": -0.08,
+  "increasePercent": 64,
+  "moneyTrack": -6.52
+},
+{
+  "id": "300221",
+  "clid": "885410",
+  "name": "固废处理",
+  "increase": -0.25,
+  "increasePercent": 71,
+  "moneyTrack": -8.15
+},
+{
+  "id": "300238",
+  "clid": "885571",
+  "name": "核电",
+  "increase": 0.21,
+  "increasePercent": 68,
+  "moneyTrack": -8.73
+},
+{
+  "id": "300248",
+  "clid": "885530",
+  "name": "黄金",
+  "increase": 0.15,
+  "increasePercent": 35,
+  "moneyTrack": -1.32
+},
+{
+  "id": "300261",
+  "clid": "885386",
+  "name": "建筑节能",
+  "increase": 0.17,
+  "increasePercent": 77,
+  "moneyTrack": 0.55
+},
+{
+  "id": "300265",
+  "clid": "885560",
+  "name": "金改",
+  "increase": -0.04,
+  "increasePercent": 72,
+  "moneyTrack": -4.66
+},
+{
+  "id": "300277",
+  "clid": "885748",
+  "name": "可燃冰",
+  "increase": -1.83,
+  "increasePercent": 0,
+  "moneyTrack": -3.56
+},
+{
+  "id": "300337",
+  "clid": "885355",
+  "name": "石墨烯",
+  "increase": 1.87,
+  "increasePercent": 70,
+  "moneyTrack": 7.47
+},
+{
+  "id": "300309",
+  "clid": "885376",
+  "name": "苹果概念",
+  "increase": 0.42,
+  "increasePercent": 68,
+  "moneyTrack": 0.17
+},
+{
+  "id": "300345",
+  "clid": "885572",
+  "name": "水利",
+  "increase": -0.8,
+  "increasePercent": 89,
+  "moneyTrack": -6.44
+},
+{
+  "id": "300350",
+  "clid": "885567",
+  "name": "太阳能",
+  "increase": 0.05,
+  "increasePercent": 78,
+  "moneyTrack": -5.37
+},
+{
+  "id": "300351",
+  "clid": "885652",
+  "name": "钛白粉",
+  "increase": 3.4,
+  "increasePercent": 20,
+  "moneyTrack": 1.47
+},
+{
+  "id": "300352",
+  "clid": "885650",
+  "name": "碳纤维",
+  "increase": 1.05,
+  "increasePercent": 83,
+  "moneyTrack": 0.99
+},
+{
+  "id": "300353",
+  "clid": "885425",
+  "name": "特高压",
+  "increase": -0.41,
+  "increasePercent": 69,
+  "moneyTrack": -5.44
+},
+{
+  "id": "300358",
+  "clid": "885430",
+  "name": "天然气",
+  "increase": -0.12,
+  "increasePercent": 73,
+  "moneyTrack": -4.98
+},
+{
+  "id": "300362",
+  "clid": "885500",
+  "name": "通用航空",
+  "increase": 0.1,
+  "increasePercent": 43,
+  "moneyTrack": -6.34
+},
+{
+  "id": "300374",
+  "clid": "885412",
+  "name": "污水处理",
+  "increase": -0.63,
+  "increasePercent": 82,
+  "moneyTrack": -9.71
+},
+{
+  "id": "300378",
+  "clid": "885312",
+  "name": "物联网",
+  "increase": 0.15,
+  "increasePercent": 78,
+  "moneyTrack": 5.88
+},
+{
+  "id": "300382",
+  "clid": "885343",
+  "name": "稀土永磁",
+  "increase": 0.83,
+  "increasePercent": 63,
+  "moneyTrack": -0.69
+},
+{
+  "id": "300386",
+  "clid": "885345",
+  "name": "新疆振兴",
+  "increase": -0.21,
+  "increasePercent": 71,
+  "moneyTrack": -4.52
+},
+{
+  "id": "300389",
+  "clid": "885729",
+  "name": "参股新三板",
+  "increase": -0.18,
+  "increasePercent": 77,
+  "moneyTrack": -19.06
+},
+{
+  "id": "300402",
+  "clid": "885372",
+  "name": "页岩气",
+  "increase": -0.66,
+  "increasePercent": 82,
+  "moneyTrack": -7.48
+},
+{
+  "id": "300403",
+  "clid": "885527",
+  "name": "医疗改革",
+  "increase": 0.36,
+  "increasePercent": 77,
+  "moneyTrack": -1.2
+},
+{
+  "id": "300419",
+  "clid": "885362",
+  "name": "云计算",
+  "increase": -0.05,
+  "increasePercent": 67,
+  "moneyTrack": -0.97
+},
+{
+  "id": "300448",
+  "clid": "885687",
+  "name": "新能源",
+  "increase": 0.35,
+  "increasePercent": 80,
+  "moneyTrack": -5.76
+},
+{
+  "id": "300451",
+  "clid": "885573",
+  "name": "猪肉",
+  "increase": 0.02,
+  "increasePercent": 81,
+  "moneyTrack": -2.51
+},
+{
+  "id": "300642",
+  "clid": "885378",
+  "name": "智慧城市",
+  "increase": 0.17,
+  "increasePercent": 74,
+  "moneyTrack": -2.27
+},
+{
+  "id": "300646",
+  "clid": "885395",
+  "name": "宽带中国",
+  "increase": 0.78,
+  "increasePercent": 70,
+  "moneyTrack": 5.15
+},
+{
+  "id": "300649",
+  "clid": "885616",
+  "name": "迪士尼",
+  "increase": -0.22,
+  "increasePercent": 78,
+  "moneyTrack": -2.59
+},
+{
+  "id": "300682",
+  "clid": "885402",
+  "name": "智能医疗",
+  "increase": 0.01,
+  "increasePercent": 79,
+  "moneyTrack": -2.42
+},
+{
+  "id": "300704",
+  "clid": "885741",
+  "name": "中字头股票",
+  "increase": -0.05,
+  "increasePercent": 57,
+  "moneyTrack": 0.64
+},
+{
+  "id": "300709",
+  "clid": "885304",
+  "name": "生物质能",
+  "increase": 0.5,
+  "increasePercent": 75,
+  "moneyTrack": -0.85
+},
+{
+  "id": "300722",
+  "clid": "885574",
+  "name": "卫星导航",
+  "increase": 0.55,
+  "increasePercent": 64,
+  "moneyTrack": -0.83
+},
+{
+  "id": "300730",
+  "clid": "885563",
+  "name": "节能环保",
+  "increase": 0.11,
+  "increasePercent": 79,
+  "moneyTrack": -2.87
+},
+{
+  "id": "300733",
+  "clid": "885710",
+  "name": "锂电池",
+  "increase": 0.7,
+  "increasePercent": 77,
+  "moneyTrack": 1.62
+},
+{
+  "id": "300755",
+  "clid": "885704",
+  "name": "东盟自贸区",
+  "increase": 0.34,
+  "increasePercent": 75,
+  "moneyTrack": -0.08
+},
+{
+  "id": "300756",
+  "clid": "885459",
+  "name": "网络安全",
+  "increase": 0.14,
+  "increasePercent": 78,
+  "moneyTrack": 5.55
+},
+{
+  "id": "300769",
+  "clid": "885403",
+  "name": "生物医药",
+  "increase": -0.06,
+  "increasePercent": 77,
+  "moneyTrack": -4.27
+},
+{
+  "id": "300777",
+  "clid": "885284",
+  "name": "稀缺资源",
+  "increase": 1.14,
+  "increasePercent": 42,
+  "moneyTrack": 1.32
+},
+{
+  "id": "300786",
+  "clid": "885461",
+  "name": "充电桩",
+  "increase": -0.03,
+  "increasePercent": 79,
+  "moneyTrack": -2.33
+},
+{
+  "id": "300800",
+  "clid": "885423",
+  "name": "安防",
+  "increase": 0.53,
+  "increasePercent": 57,
+  "moneyTrack": -1.66
+},
+{
+  "id": "300804",
+  "clid": "885419",
+  "name": "脱硫脱硝",
+  "increase": -0.27,
+  "increasePercent": 81,
+  "moneyTrack": -3.31
+},
+{
+  "id": "300806",
+  "clid": "885418",
+  "name": "文化传媒",
+  "increase": -0.3,
+  "increasePercent": 77,
+  "moneyTrack": -16.34
+},
+{
+  "id": "300809",
+  "clid": "885552",
+  "name": "小金属",
+  "increase": 1.09,
+  "increasePercent": 46,
+  "moneyTrack": 3.39
+},
+{
+  "id": "300814",
+  "clid": "885543",
+  "name": "家用电器",
+  "increase": 0.98,
+  "increasePercent": 84,
+  "moneyTrack": 12.4
+},
+{
+  "id": "300816",
+  "clid": "885517",
+  "name": "机器人概念",
+  "increase": 0.03,
+  "increasePercent": 84,
+  "moneyTrack": 13.32
+},
+{
+  "id": "300830",
+  "clid": "885730",
+  "name": "量子通信",
+  "increase": 0.13,
+  "increasePercent": 36,
+  "moneyTrack": -2.36
+},
+{
+  "id": "300831",
+  "clid": "885381",
+  "name": "美丽中国",
+  "increase": 0.27,
+  "increasePercent": 73,
+  "moneyTrack": -5.82
+},
+{
+  "id": "300834",
+  "clid": "885658",
+  "name": "移动互联网",
+  "increase": -0.04,
+  "increasePercent": 71,
+  "moneyTrack": -3.76
+},
+{
+  "id": "300835",
+  "clid": "885452",
+  "name": "大数据",
+  "increase": 0.1,
+  "increasePercent": 69,
+  "moneyTrack": -6.01
+},
+{
+  "id": "300836",
+  "clid": "885705",
+  "name": "农业现代化",
+  "increase": -0.33,
+  "increasePercent": 64,
+  "moneyTrack": -1.67
+},
+{
+  "id": "300843",
+  "clid": "885556",
+  "name": "4G",
+  "increase": 0.55,
+  "increasePercent": 66,
+  "moneyTrack": 1.95
+},
+{
+  "id": "300845",
+  "clid": "885428",
+  "name": "特钢",
+  "increase": 0.25,
+  "increasePercent": 36,
+  "moneyTrack": -3.4
+},
+{
+  "id": "300858",
+  "clid": "885439",
+  "name": "土地流转",
+  "increase": 0.1,
+  "increasePercent": 62,
+  "moneyTrack": -1.32
+},
+{
+  "id": "300883",
+  "clid": "885544",
+  "name": "新材料概念",
+  "increase": 0.62,
+  "increasePercent": 67,
+  "moneyTrack": 1.13
+},
+{
+  "id": "300889",
+  "clid": "885564",
+  "name": "无人机",
+  "increase": 0.57,
+  "increasePercent": 45,
+  "moneyTrack": -1.61
+},
+{
+  "id": "300890",
+  "clid": "885427",
+  "name": "高端装备",
+  "increase": 0.02,
+  "increasePercent": 64,
+  "moneyTrack": -12.14
+},
+{
+  "id": "300891",
+  "clid": "885540",
+  "name": "二胎概念",
+  "increase": -0.21,
+  "increasePercent": 72,
+  "moneyTrack": -0.87
+},
+{
+  "id": "300898",
+  "clid": "885509",
+  "name": "尾气治理",
+  "increase": 0.14,
+  "increasePercent": 64,
+  "moneyTrack": -0.51
+},
+{
+  "id": "300903",
+  "clid": "885668",
+  "name": "油品升级",
+  "increase": -0.3,
+  "increasePercent": 73,
+  "moneyTrack": -1.11
+},
+{
+  "id": "300920",
+  "clid": "885478",
+  "name": "智能家居",
+  "increase": 0.66,
+  "increasePercent": 79,
+  "moneyTrack": 3.65
+},
+{
+  "id": "300923",
+  "clid": "885505",
+  "name": "生态农业",
+  "increase": 0.33,
+  "increasePercent": 61,
+  "moneyTrack": -0.92
+},
+{
+  "id": "300973",
+  "clid": "885733",
+  "name": "航运",
+  "increase": -0.24,
+  "increasePercent": 67,
+  "moneyTrack": -2.28
+},
+{
+  "id": "300983",
+  "clid": "885462",
+  "name": "乳业",
+  "increase": 0.7,
+  "increasePercent": 95,
+  "moneyTrack": 2.86
+},
+{
+  "id": "301050",
+  "clid": "885457",
+  "name": "手机游戏",
+  "increase": -0.22,
+  "increasePercent": 65,
+  "moneyTrack": -9.21
+},
+{
+  "id": "301079",
+  "clid": "885531",
+  "name": "光伏概念",
+  "increase": 0.13,
+  "increasePercent": 77,
+  "moneyTrack": -8.14
+},
+{
+  "id": "301100",
+  "clid": "885580",
+  "name": "足球概念",
+  "increase": -0.06,
+  "increasePercent": 68,
+  "moneyTrack": -2.19
+},
+{
+  "id": "301121",
+  "clid": "885467",
+  "name": "特斯拉",
+  "increase": -0.1,
+  "increasePercent": 81,
+  "moneyTrack": -6.17
+},
+{
+  "id": "301128",
+  "clid": "885472",
+  "name": "上海自贸区",
+  "increase": -0.56,
+  "increasePercent": 70,
+  "moneyTrack": -1.08
+},
+{
+  "id": "301139",
+  "clid": "885503",
+  "name": "蓝宝石",
+  "increase": 0.24,
+  "increasePercent": 73,
+  "moneyTrack": 2.16
+},
+{
+  "id": "301146",
+  "clid": "885578",
+  "name": "基因测序",
+  "increase": 0.44,
+  "increasePercent": 76,
+  "moneyTrack": -1.85
+},
+{
+  "id": "301154",
+  "clid": "885738",
+  "name": "OLED",
+  "increase": 0.06,
+  "increasePercent": 65,
+  "moneyTrack": -2.76
+},
+{
+  "id": "301171",
+  "clid": "885697",
+  "name": "深圳国资改革",
+  "increase": -0.35,
+  "increasePercent": 62,
+  "moneyTrack": -1.51
+},
+{
+  "id": "301175",
+  "clid": "885454",
+  "name": "智能穿戴",
+  "increase": 0.25,
+  "increasePercent": 66,
+  "moneyTrack": 1.88
+},
+{
+  "id": "301209",
+  "clid": "885456",
+  "name": "互联网金融",
+  "increase": -0.09,
+  "increasePercent": 73,
+  "moneyTrack": -22.03
+},
+{
+  "id": "301179",
+  "clid": "885502",
+  "name": "冷链物流",
+  "increase": -0.27,
+  "increasePercent": 71,
+  "moneyTrack": -2.67
+},
+{
+  "id": "301213",
+  "clid": "885481",
+  "name": "电子发票",
+  "increase": -0.03,
+  "increasePercent": 71,
+  "moneyTrack": -0.63
+},
+{
+  "id": "301223",
+  "clid": "885497",
+  "name": "在线旅游",
+  "increase": 0.17,
+  "increasePercent": 71,
+  "moneyTrack": -0.81
+},
+{
+  "id": "301227",
+  "clid": "885480",
+  "name": "在线教育",
+  "increase": -0.22,
+  "increasePercent": 77,
+  "moneyTrack": -4.05
+},
+{
+  "id": "301229",
+  "clid": "885487",
+  "name": "天津自贸区",
+  "increase": -0.85,
+  "increasePercent": 54,
+  "moneyTrack": -1.99
+},
+{
+  "id": "301236",
+  "clid": "885617",
+  "name": "福建自贸区",
+  "increase": 0.4,
+  "increasePercent": 91,
+  "moneyTrack": -0.31
+},
+{
+  "id": "301244",
+  "clid": "885516",
+  "name": "马云概念",
+  "increase": 0.45,
+  "increasePercent": 82,
+  "moneyTrack": 0.35
+},
+{
+  "id": "301249",
+  "clid": "885647",
+  "name": "互联网彩票",
+  "increase": 0.38,
+  "increasePercent": 68,
+  "moneyTrack": -0.7
+},
+{
+  "id": "301284",
+  "clid": "885657",
+  "name": "供应链金融",
+  "increase": -0.15,
+  "increasePercent": 74,
+  "moneyTrack": -4.11
+},
+{
+  "id": "301286",
+  "clid": "885736",
+  "name": "无人驾驶",
+  "increase": 0.23,
+  "increasePercent": 71,
+  "moneyTrack": -1.27
+},
+{
+  "id": "301292",
+  "clid": "885633",
+  "name": "分散染料",
+  "increase": -0.72,
+  "increasePercent": 56,
+  "moneyTrack": -1.28
+},
+{
+  "id": "301306",
+  "clid": "885706",
+  "name": "农机",
+  "increase": 0.18,
+  "increasePercent": 82,
+  "moneyTrack": -0.15
+},
+{
+  "id": "301346",
+  "clid": "885490",
+  "name": "民营医院",
+  "increase": 0.02,
+  "increasePercent": 81,
+  "moneyTrack": -2.98
+},
+{
+  "id": "301365",
+  "clid": "885494",
+  "name": "一带一路",
+  "increase": 0,
+  "increasePercent": 72,
+  "moneyTrack": -9.28
+},
+{
+  "id": "301366",
+  "clid": "885482",
+  "name": "参股民营银行",
+  "increase": 0.01,
+  "increasePercent": 84,
+  "moneyTrack": 4.75
+},
+{
+  "id": "301383",
+  "clid": "885496",
+  "name": "油品改革",
+  "increase": -0.44,
+  "increasePercent": 48,
+  "moneyTrack": -2.62
+},
+{
+  "id": "301402",
+  "clid": "885493",
+  "name": "上海国资改革",
+  "increase": -0.79,
+  "increasePercent": 61,
+  "moneyTrack": -5.51
+},
+{
+  "id": "301408",
+  "clid": "885648",
+  "name": "物流电商平台",
+  "increase": -0.34,
+  "increasePercent": 61,
+  "moneyTrack": -3.08
+},
+{
+  "id": "301416",
+  "clid": "885605",
+  "name": "P2P概念",
+  "increase": -0.21,
+  "increasePercent": 70,
+  "moneyTrack": 0.59
+},
+{
+  "id": "301436",
+  "clid": "885639",
+  "name": "高送转",
+  "increase": -0.19,
+  "increasePercent": 65,
+  "moneyTrack": -14.24
+},
+{
+  "id": "301455",
+  "clid": "885742",
+  "name": "摘帽",
+  "increase": -0.42,
+  "increasePercent": 0,
+  "moneyTrack": -5.34
+},
+{
+  "id": "301471",
+  "clid": "885545",
+  "name": "汽车电子",
+  "increase": 0.05,
+  "increasePercent": 61,
+  "moneyTrack": -4.73
+},
+{
+  "id": "301489",
+  "clid": "885588",
+  "name": "电力改革",
+  "increase": -0.04,
+  "increasePercent": 70,
+  "moneyTrack": -3.49
+},
+{
+  "id": "301491",
+  "clid": "885521",
+  "name": "粤港澳概念",
+  "increase": 0.77,
+  "increasePercent": 75,
+  "moneyTrack": 0.84
+},
+{
+  "id": "301494",
+  "clid": "885522",
+  "name": "养老概念",
+  "increase": 0.13,
+  "increasePercent": 85,
+  "moneyTrack": -1.37
+},
+{
+  "id": "301496",
+  "clid": "885525",
+  "name": "白酒",
+  "increase": -0.1,
+  "increasePercent": 48,
+  "moneyTrack": -1.19
+},
+{
+  "id": "301502",
+  "clid": "885561",
+  "name": "O2O概念",
+  "increase": 0.02,
+  "increasePercent": 68,
+  "moneyTrack": -6.19
+},
+{
+  "id": "301505",
+  "clid": "885539",
+  "name": "医疗器械",
+  "increase": 0.1,
+  "increasePercent": 79,
+  "moneyTrack": -0.28
+},
+{
+  "id": "301518",
+  "clid": "885562",
+  "name": "高铁",
+  "increase": 0.12,
+  "increasePercent": 67,
+  "moneyTrack": -7.52
+},
+{
+  "id": "301522",
+  "clid": "885675",
+  "name": "集成电路",
+  "increase": 0.13,
+  "increasePercent": 77,
+  "moneyTrack": -1.71
+},
+{
+  "id": "301524",
+  "clid": "885568",
+  "name": "国产软件",
+  "increase": -0.18,
+  "increasePercent": 86,
+  "moneyTrack": -0.96
+},
+{
+  "id": "301539",
+  "clid": "885586",
+  "name": "职业教育",
+  "increase": 0.07,
+  "increasePercent": 64,
+  "moneyTrack": 0.45
+},
+{
+  "id": "301541",
+  "clid": "885591",
+  "name": "中韩自贸区",
+  "increase": 0.35,
+  "increasePercent": 88,
+  "moneyTrack": -1.19
+},
+{
+  "id": "301558",
+  "clid": "885611",
+  "name": "阿里巴巴概念",
+  "increase": 0.08,
+  "increasePercent": 76,
+  "moneyTrack": -0.96
+},
+{
+  "id": "301561",
+  "clid": "885651",
+  "name": "两桶油改革",
+  "increase": -1.05,
+  "increasePercent": 56,
+  "moneyTrack": -1.2
+},
+{
+  "id": "301564",
+  "clid": "885642",
+  "name": "跨境电商",
+  "increase": 0.16,
+  "increasePercent": 62,
+  "moneyTrack": -2.33
+},
+{
+  "id": "301565",
+  "clid": "885661",
+  "name": "医药电商",
+  "increase": 0.46,
+  "increasePercent": 77,
+  "moneyTrack": -0.69
+},
+{
+  "id": "301605",
+  "clid": "885615",
+  "name": "体育产业",
+  "increase": 0.49,
+  "increasePercent": 71,
+  "moneyTrack": -0.07
+},
+{
+  "id": "301620",
+  "clid": "885619",
+  "name": "工业4.0",
+  "increase": -0.32,
+  "increasePercent": 79,
+  "moneyTrack": -0.88
+},
+{
+  "id": "301623",
+  "clid": "885692",
+  "name": "地下管网",
+  "increase": -0.17,
+  "increasePercent": 79,
+  "moneyTrack": -1.79
+},
+{
+  "id": "301624",
+  "clid": "885690",
+  "name": "PPP概念",
+  "increase": -0.17,
+  "increasePercent": 78,
+  "moneyTrack": -18.71
+},
+{
+  "id": "301627",
+  "clid": "885624",
+  "name": "西安自贸区",
+  "increase": -0.48,
+  "increasePercent": 71,
+  "moneyTrack": -0.48
+},
+{
+  "id": "301630",
+  "clid": "885734",
+  "name": "广东自贸区",
+  "increase": 0.49,
+  "increasePercent": 75,
+  "moneyTrack": 1.53
+},
+{
+  "id": "301631",
+  "clid": "885735",
+  "name": "二维码识别",
+  "increase": 0.04,
+  "increasePercent": 83,
+  "moneyTrack": -0.35
+},
+{
+  "id": "301683",
+  "clid": "885682",
+  "name": "能源互联网",
+  "increase": -0.71,
+  "increasePercent": 79,
+  "moneyTrack": -0.58
+},
+{
+  "id": "301699",
+  "clid": "885709",
+  "name": "虚拟现实",
+  "increase": -0.05,
+  "increasePercent": 72,
+  "moneyTrack": -0.08
+},
+{
+  "id": "301700",
+  "clid": "885746",
+  "name": "消费金融",
+  "increase": -0.24,
+  "increasePercent": 0,
+  "moneyTrack": -1.86
+},
+{
+  "id": "301783",
+  "clid": "885701",
+  "name": "杭州亚运会",
+  "increase": 0.25,
+  "increasePercent": 29,
+  "moneyTrack": 0.27
+},
+{
+  "id": "301786",
+  "clid": "885743",
+  "name": "军民融合",
+  "increase": 0.38,
+  "increasePercent": 0,
+  "moneyTrack": -2.92
+},
+{
+  "id": "301799",
+  "clid": "885703",
+  "name": "健康中国",
+  "increase": 0.51,
+  "increasePercent": 78,
+  "moneyTrack": 2.9
+},
+{
+  "id": "302027",
+  "clid": "885737",
+  "name": "电子竞技",
+  "increase": -0.4,
+  "increasePercent": 73,
+  "moneyTrack": -7.64
+},
+{
+  "id": "302035",
+  "clid": "885728",
+  "name": "人工智能",
+  "increase": -0.12,
+  "increasePercent": 76,
+  "moneyTrack": -7.7
+},
+{
+  "id": "302046",
+  "clid": "885740",
+  "name": "债转股",
+  "increase": -0.58,
+  "increasePercent": 72,
+  "moneyTrack": -9.72
+},
+{
+  "id": "302142",
+  "clid": "885753",
+  "name": "网约车",
+  "increase": -0.55,
+  "increasePercent": 0,
+  "moneyTrack": -0.5
+},
+{
+  "id": "302148",
+  "clid": "885751",
+  "name": "万达私有化",
+  "increase": 0.38,
+  "increasePercent": 0,
+  "moneyTrack": 1.36
+},
+{
+  "id": "302150",
+  "clid": "885749",
+  "name": "蚂蚁金服概念",
+  "increase": 0.84,
+  "increasePercent": 0,
+  "moneyTrack": 2.05
+},
+{
+  "id": "302154",
+  "clid": "885739",
+  "name": "股权转让",
+  "increase": 0.2,
+  "increasePercent": 64,
+  "moneyTrack": 4.76
+},
+{
+  "id": "302166",
+  "clid": "885747",
+  "name": "共享单车",
+  "increase": 0.65,
+  "increasePercent": 0,
+  "moneyTrack": -0.31
+},
+{
+  "id": "302170",
+  "clid": "885754",
+  "name": "微信小程序",
+  "increase": 0.49,
+  "increasePercent": 0,
+  "moneyTrack": 0.65
+},
+{
+  "id": "302182",
+  "clid": "885744",
+  "name": "雄安新区",
+  "increase": -0.96,
+  "increasePercent": 0,
+  "moneyTrack": -53.96
+},
+{
+  "id": "302674",
+  "clid": "885750",
+  "name": "特色小镇",
+  "increase": -0.04,
+  "increasePercent": 0,
+  "moneyTrack": -6.33
+},
+{
+  "id": "304116",
+  "clid": "885752",
+  "name": "王者荣耀",
+  "increase": -1.47,
+  "increasePercent": 0,
+  "moneyTrack": -3.71
+},

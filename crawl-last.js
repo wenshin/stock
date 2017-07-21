@@ -127,4 +127,4 @@ function calcIncrease(data, cursor) {
 
 // crawlIndexLast({start: 20170524, end: 20170603});
 // crawlIndustryLast({start: 20170524, end: 20170603});
-crawlConceptLast({start: 20170524, end: 20170603});
+crawlConceptLast({start: 20170703, end: 20170703});
