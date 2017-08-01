@@ -96,6 +96,43 @@ function fetchData(page, dateStr) {
     });
 }
 
-crawlIndustryToday();
+function fetchGlobalToday(date) {
+  const dateStr = date || moment().format('YYYYMMDD');
+  try {
+    fs.unlinkSync(`./industry/${dateStr}.json`);
+  } catch (err) {
+    console.log(err);
+  }
+  const url = 'http://q.10jqka.com.cn/global/index/ajax/1/';
+    requestGBK({url}, true)
+      .then((body) => {
+        if (!body) {
+          console.log('返回数据为空！');
+          return;
+        }
+        for (const key of Object.keys(body)) {
+          const item = body[key];
+          if (item.isRun) {
+            continue;
+          }
+          const date = item.time.replace(/-/g, '');
+          if (item && dataArr) {
+            fs.appendFile(`./global/${dateStr}.json`, JSON.stringify({
+              id,
+              name,
+              increase: Number(increaseTd.children[0].data)
+            }, null, 2) + ',\n', (err) => {
+              err && console.log(err)
+            });
+          }
+        }
+      })
+      .catch(err => console.error(err))
+}
+
+// crawlIndustryToday();
 // crawlIndexToday()
 // fetchConceptToday();
+
+
+// fetchGlobalToday();

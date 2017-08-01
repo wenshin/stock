@@ -126,7 +126,7 @@ module.exports = util = {
     return newStr;
   },
 
-  requestGBK(options) {
+  requestGBK(options, isJSON) {
     return new Promise((resolve, reject) => {
       request(Object.assign({encoding: null, headers: getHeaders()}, options), (err, res, bodyBuf) => {
         if (err) {
@@ -135,7 +135,7 @@ module.exports = util = {
         }
         const iconv = require('iconv-lite');
         const body = iconv.decode(bodyBuf, 'gbk');
-        resolve(cheerio.load(body));
+        resolve(isJSON ? JSON.parse(body) : cheerio.load(body));
       });
     })
   },
