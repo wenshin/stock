@@ -132,7 +132,7 @@ function fetchGlobalToday(date) {
 
 // crawlIndustryToday();
 // crawlIndexToday()
-// fetchConceptToday();
+fetchConceptToday();
 
 
 // fetchGlobalToday();
