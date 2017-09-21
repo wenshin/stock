@@ -5,7 +5,7 @@ const {INDEXES} = require('./consts');
 
 
 function fetchConceptToday(date) {
-  requestGBK({url: 'http://q.10jqka.com.cn/gn/'})
+  return requestGBK({url: 'http://q.10jqka.com.cn/gn/'})
     .then(($) => {
       const elem = $('#gnSection')[0];
       const dateStr = date || moment().format('YYYYMMDD');
@@ -41,24 +41,28 @@ function crawlIndexToday(date, indexes = INDEXES) {
   } catch (err) {
     console.log(err);
   }
+  const promises = [];
   for (const idx of indexes) {
     const url = `http://q.10jqka.com.cn/zs/detail/code/${idx.id}`;
-    requestGBK({url})
-      .then(($) => {
-        $('.board-infos dl:nth-child(6) dd')
-          .each((index, elem) => {
-            const increase = Number(elem.children[0].data.replace('%', ''));
-            console.log('写入' + idx.name);
-            fs.appendFile(`./indexes/${dateStr}.json`, JSON.stringify({
-              id: idx.id,
-              name: idx.name,
-              increase
-            }, null, 2) + ',\n', (err) => {
-              err && console.log(err)
+    promises.push(
+      requestGBK({url})
+        .then(($) => {
+          $('.board-infos dl:nth-child(6) dd')
+            .each((index, elem) => {
+              const increase = Number(elem.children[0].data.replace('%', ''));
+              console.log('写入' + idx.name);
+              fs.appendFile(`./indexes/${dateStr}.json`, JSON.stringify({
+                id: idx.id,
+                name: idx.name,
+                increase
+              }, null, 2) + ',\n', (err) => {
+                err && console.log(err)
+              });
             });
-          });
-      })
+        })
+    )
   }
+  return Promise.all(promises);
 }
 
 
@@ -69,13 +73,15 @@ function crawlIndustryToday(date) {
   } catch (err) {
     console.log(err);
   }
-  fetchData(1, dateStr);
-  fetchData(2, dateStr);
+  return Promise.all([
+    fetchData(1, dateStr),
+    fetchData(2, dateStr)
+  ]);
 }
 
 
 function fetchData(page, dateStr) {
-  requestGBK({url: `http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/${page}/ajax/1/`})
+  return requestGBK({url: `http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/${page}/ajax/1/`})
     .then(($) => {
       $('tbody tr')
         .each((idx, tr) => {
@@ -91,6 +97,7 @@ function fetchData(page, dateStr) {
             increase: Number(increaseTd.children[0].data)
           }, null, 2) + ',\n', (err) => {
             err && console.log(err)
+            console.log('写入行业数据')
           });
         });
     });
@@ -104,35 +111,35 @@ function fetchGlobalToday(date) {
     console.log(err);
   }
   const url = 'http://q.10jqka.com.cn/global/index/ajax/1/';
-    requestGBK({url}, true)
-      .then((body) => {
-        if (!body) {
-          console.log('返回数据为空！');
-          return;
+  return requestGBK({url}, true)
+    .then((body) => {
+      if (!body) {
+        console.log('返回数据为空！');
+        return;
+      }
+      for (const key of Object.keys(body)) {
+        const item = body[key];
+        if (item.isRun) {
+          continue;
         }
-        for (const key of Object.keys(body)) {
-          const item = body[key];
-          if (item.isRun) {
-            continue;
-          }
-          const date = item.time.replace(/-/g, '');
-          if (item && dataArr) {
-            fs.appendFile(`./global/${dateStr}.json`, JSON.stringify({
-              id,
-              name,
-              increase: Number(increaseTd.children[0].data)
-            }, null, 2) + ',\n', (err) => {
-              err && console.log(err)
-            });
-          }
+        const date = item.time.replace(/-/g, '');
+        if (item && dataArr) {
+          fs.appendFile(`./global/${dateStr}.json`, JSON.stringify({
+            id,
+            name,
+            increase: Number(increaseTd.children[0].data)
+          }, null, 2) + ',\n', (err) => {
+            err && console.log(err)
+          });
         }
-      })
-      .catch(err => console.error(err))
+      }
+    })
+    .catch(err => console.error(err))
 }
 
-// crawlIndustryToday();
-// crawlIndexToday()
-fetchConceptToday();
+crawlIndustryToday()
+.then(() => crawlIndexToday())
+.then(() => fetchConceptToday());
 
 
 // fetchGlobalToday();
