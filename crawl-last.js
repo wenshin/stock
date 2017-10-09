@@ -45,7 +45,7 @@ function getConceptId(cid) {
 function crawlIndexLast(limitPeriod = {}) {
   throttle({
     data: INDEXES,
-    interval: 1000,
+    interval: 3000,
     doIt(item) {
       const url = `http://d.10jqka.com.cn/v4/line/zs_${item.id}/01/last.js`;
       item.lastUrl = url;
@@ -125,6 +125,6 @@ function calcIncrease(data, cursor) {
   return Number(percentage.toFixed(2));
 }
 
-// crawlIndexLast({start: 20170524, end: 20170603});
-crawlIndustryLast({start: 20170731, end: 20170731});
-// crawlConceptLast({start: 20170703, end: 20170703});
+// crawlIndexLast({start: 20170927, end: 20170930});
+// crawlIndustryLast({start: 20170927, end: 20170930});
+crawlConceptLast({start: 20170927, end: 20170930});

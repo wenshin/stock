@@ -138,8 +138,7 @@ function fetchGlobalToday(date) {
 }
 
 crawlIndustryToday()
-.then(() => crawlIndexToday())
-.then(() => fetchConceptToday());
-
+  .then(() => crawlIndexToday())
+  .then(() => fetchConceptToday());
 
 // fetchGlobalToday();

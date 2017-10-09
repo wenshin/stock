@@ -20,11 +20,13 @@ function getHeaders() {
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
   ];
   return {
-    // Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    // 'Accept-Encoding': 'gzip, deflate, sdch',
-    // 'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4',
-    // Host: 'd.10jqka.com.cn',
-    // Referer: 'http://stock.10jqka.com.cn/market.shtml',
+    Pragma: 'no-cache',
+    'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4',
+    'Accept': '*/*',
+    'Referer': 'http://q.10jqka.com.cn/zs/detail/code/1A0001/',
+    'Cookie': 'log=; v=AYbgMMR1I0qjmfcuz1svlb9C0XcM58jbnCn-BXCuctmEnCih2HcasWy7ThBA; Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1507553034; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1507553106; user=MDpteF8zMDU0ODczOTg6Ok5vbmU6NTAwOjMxNTQ4NzM5ODo3LDExMTExMTExMTExLDQwOzQ0LDExLDQwOzYsMSw0MDs1LDEsNDA6MTY6OjozMDU0ODczOTg6MTUwNzU1MzMyNDo6OjE0NDY2MTU2NjA6NjA0ODAwOjA6MWE5ODU3NTQwMmJiMzI3YWM5ZTE4NGVlNzdiZTZmNDU4OmRlZmF1bHRfMjow; userid=305487398; u_name=mx_305487398; escapename=mx_305487398; ticket=f58bcf9875e69f835555b756cd82b1e1',
+    'Connection': 'keep-alive',
+    'Cache-Control': 'no-cache',
     'User-Agent': UAs[Math.round(Math.random() * 4)]
   }
 }
