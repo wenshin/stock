@@ -1,180 +1,187 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>ECharts</title>
     <style type="text/css">
-        html, body {
-            width: 100%;
-        }
+      html,
+      body {
+        width: 100%;
+      }
     </style>
     <!-- 引入 echarts.js -->
     <script src="./jquery.min.js"></script>
     <script src="./echarts.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <select id="select-day">
-        <option value="default">全部数据</option>
-        <option value="3">最近3天</option>
-        <option value="5">最近5天</option>
-        <option value="10" selected="selected">最近10天</option>
-        <option value="30">最近30天</option>
-        <option value="90">最近90天</option>
+      <option value="default">全部数据</option>
+      <option value="3">最近3天</option>
+      <option value="5">最近5天</option>
+      <option value="10" selected="selected">最近10天</option>
+      <option value="30">最近30天</option>
+      <option value="90">最近90天</option>
     </select>
     <select id="select-type">
-        <option value="indexes" selected="selected">指数对比</option>
-        <option value="concept">概念对比</option>
-        <option value="industry">行业对比</option>
+      <option value="indexes" selected="selected">指数对比</option>
+      <option value="concept">概念对比</option>
+      <option value="industry">行业对比</option>
     </select>
-    <label><input id="choose-all-data" type="checkbox"/>全部数据</label>
+    <label><input id="choose-all-data" type="checkbox" />全部数据</label>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="chart" style="width: 100%; height: 650px;"></div>
+    <div id="chart" style="width: 100%; height: 650px"></div>
     <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var chart = echarts.init(document.getElementById('chart'));
-        var selectDay = document.getElementById('select-day');
-        var selectType = document.getElementById('select-type');
-        var chooseAllData = document.getElementById('choose-all-data');
-        var TypeLabels = {
-            indexes: '指数对比',
-            concept: '概念对比',
-            industry: '行业对比'
-        };
-        var gDays = 10;
-        var gType = {value: 'indexes', label: TypeLabels.indexes};
-        var gData = {};
-        var gIsAllData = false;
+      // 基于准备好的dom，初始化echarts实例
+      var chart = echarts.init(document.getElementById("chart"));
+      var selectDay = document.getElementById("select-day");
+      var selectType = document.getElementById("select-type");
+      var chooseAllData = document.getElementById("choose-all-data");
+      var TypeLabels = {
+        indexes: "指数对比",
+        concept: "概念对比",
+        industry: "行业对比",
+      };
+      var gDays = 10;
+      var gType = { value: "indexes", label: TypeLabels.indexes };
+      var gData = {};
+      var gIsAllData = false;
 
-        selectDay.addEventListener('change', (e) => {
-            gDays = Number(e.target.value);
-            renderChart(chart, gData[gType.value], gDays, {
-                title: {text: TypeLabels[gType.value]}
-            });
+      selectDay.addEventListener("change", (e) => {
+        gDays = Number(e.target.value);
+        renderChart(chart, gData[gType.value], gDays, {
+          title: { text: TypeLabels[gType.value] },
         });
+      });
 
-        selectType.addEventListener('change', (e) => {
-            gType.value = e.target.value;
-            gType.label = TypeLabels[e.target.value];
-            renderChart(chart, gData[gType.value], gDays, {
-                title: {text: TypeLabels[gType.value]}
-            });
+      selectType.addEventListener("change", (e) => {
+        gType.value = e.target.value;
+        gType.label = TypeLabels[e.target.value];
+        renderChart(chart, gData[gType.value], gDays, {
+          title: { text: TypeLabels[gType.value] },
         });
+      });
 
-        chooseAllData.addEventListener('change', (e) => {
-            gIsAllData = e.target.checked;
-            renderChart(chart, gData[gType.value], gDays, {
-                title: {text: TypeLabels[gType.value]}
-            });
+      chooseAllData.addEventListener("change", (e) => {
+        gIsAllData = e.target.checked;
+        renderChart(chart, gData[gType.value], gDays, {
+          title: { text: TypeLabels[gType.value] },
         });
+      });
 
-        window.addEventListener('load', function () {
-            // 使用刚指定的配置项和数据显示图表。
-            fetch('./data.json')
-                .then(res => {
-                    if (!res.ok) alert('fetch error!');
-                    res.json().then(data => {
-                        gData = data;
-                        renderChart(chart, gData[gType.value], gDays, {
-                            title: {text: TypeLabels[gType.value]}
-                        });
-                    });
-                });
-        })
+      window.addEventListener("load", function () {
+        // 使用刚指定的配置项和数据显示图表。
+        fetch("./data.json").then((res) => {
+          if (!res.ok) alert("fetch error!");
+          res.json().then((data) => {
+            gData = data;
+            renderChart(chart, gData[gType.value], gDays, {
+              title: { text: TypeLabels[gType.value] },
+            });
+          });
+        });
+      });
 
+      function changeDataStartDate(data, newLength) {
+        const newData = data.slice(data.length - newLength + 1);
+        const baseValue = data[data.length - newLength] || 0;
+        const result = newData.map((v) => v - baseValue);
+        result.unshift(0);
+        return result;
+      }
 
-        function changeDataStartDate(data, newLength) {
-            const newData = data.slice(data.length - newLength + 1);
-            const baseValue = data[data.length - newLength] || 0;
-            const result = newData.map(v => v - baseValue);
-            result.unshift(0);
-            return result;
-        }
-
-        function renderChart(chart, data, showLength, options) {
-            data = getData(data, showLength);
-            // 指定图表的配置项和数据
-            var option = Object.assign({
-                tooltip: {
-                    formatter(item) {
-                        return `${item.seriesName} ${item.data.toFixed(2)}%`;
-                    }
+      function renderChart(chart, data, showLength, options) {
+        data = getData(data, showLength);
+        // 指定图表的配置项和数据
+        var option = Object.assign(
+          {
+            tooltip: {
+              formatter(item) {
+                return `${item.seriesName} ${item.data.toFixed(2)}%`;
+              },
+            },
+            legend: {
+              data: data.map((v) => v.name),
+            },
+            xAxis: {
+              data: showLength
+                ? gData.dates.slice(gData.dates.length - showLength)
+                : gData.dates,
+            },
+            yAxis: [
+              {
+                type: "value",
+                scale: true,
+                axisLabel: {
+                  formatter: "{value} %",
                 },
-                legend: {
-                    data: data.map(v => v.name)
+                splitLine: {
+                  show: false,
                 },
-                xAxis: {data: showLength
-                    ? gData.dates.slice(gData.dates.length - showLength)
-                    : gData.dates},
-                yAxis: [
-                    {
-                        type : 'value',
-                        scale:true,
-                        axisLabel : {
-                            formatter: '{value} %'
-                        },
-                        splitLine: {
-                            show: false
-                        }
-                    }
-                ],
-                series: data.map(v => ({
-                    name: v.name,
-                    type: 'line',
-                    data: showLength ? changeDataStartDate(v.data, showLength) : v.data
-                }))
-            }, options);
-            chart.setOption(option);
-        }
+              },
+            ],
+            series: data.map((v) => ({
+              name: v.name,
+              type: "line",
+              data: showLength
+                ? changeDataStartDate(v.data, showLength)
+                : v.data,
+            })),
+          },
+          options
+        );
+        chart.setOption(option);
+      }
 
-        function getData(data, continousDays = 2) {
-            if (gIsAllData) {
-                return data;
-            } else {
-                return getTopTenOfContinuouslyIncreased(data, continousDays);
-            }
+      function getData(data, continousDays = 2) {
+        if (gIsAllData) {
+          return data;
+        } else {
+          return getTopTenOfContinuouslyIncreased(data, continousDays);
         }
+      }
 
-        function getTopTenOfContinuouslyIncreased(data, continousDays = 2) {
-            data.sort((a, b) => {
-                const aInfo = getIncreaseInfo(a.data, continousDays);
-                const bInfo = getIncreaseInfo(b.data, continousDays);
-                if (aInfo.type === 0b111) {
-                    return -1;
-                } else if (bInfo.type === 0b111) {
-                    return 1;
-                } else if (aInfo.increasedLast > bInfo.increasedLast) {
-                    return -1;
-                } else if (aInfo.increasedLast < bInfo.increasedLast) {
-                    return 1;
-                } else if (aInfo.type > bInfo.type) {
-                    return -1;
-                } else if (aInfo.type < bInfo.type) {
-                    return 1;
-                } else if (aInfo.increased > bInfo.increased) {
-                    return -1;
-                } else if (aInfo.increased < bInfo.increased) {
-                    return 1;
-                }
-                return 0;
-            });
-            return data.slice(0, 20);
-        }
+      function getTopTenOfContinuouslyIncreased(data, continousDays = 2) {
+        data.sort((a, b) => {
+          const aInfo = getIncreaseInfo(a.data, continousDays);
+          const bInfo = getIncreaseInfo(b.data, continousDays);
+          if (aInfo.type === 0b111) {
+            return -1;
+          } else if (bInfo.type === 0b111) {
+            return 1;
+          } else if (aInfo.increasedLast > bInfo.increasedLast) {
+            return -1;
+          } else if (aInfo.increasedLast < bInfo.increasedLast) {
+            return 1;
+          } else if (aInfo.type > bInfo.type) {
+            return -1;
+          } else if (aInfo.type < bInfo.type) {
+            return 1;
+          } else if (aInfo.increased > bInfo.increased) {
+            return -1;
+          } else if (aInfo.increased < bInfo.increased) {
+            return 1;
+          }
+          return 0;
+        });
+        return data.slice(0, 30);
+      }
 
-        function getIncreaseInfo(data, continousDays) {
-            let type = '';
-            for (let i = 1; i <= continousDays + 1; i++) {
-                const cur = data.length - i;
-                const last = data.length - i - 1;
-                if (data[cur] > data[last]) {
-                    type += '1'
-                } else {
-                    type += '0'
-                }
-            }
-            const increased = data[data.length - 1] - data[data.length - continousDays - 1];
-            const increasedLast = data[data.length - 1] - data[data.length - 2];
-            return {type, increased, increasedLast};
+      function getIncreaseInfo(data, continousDays) {
+        let type = "";
+        for (let i = 1; i <= continousDays + 1; i++) {
+          const cur = data.length - i;
+          const last = data.length - i - 1;
+          if (data[cur] > data[last]) {
+            type += "1";
+          } else {
+            type += "0";
+          }
         }
+        const increased =
+          data[data.length - 1] - data[data.length - continousDays - 1];
+        const increasedLast = data[data.length - 1] - data[data.length - 2];
+        return { type, increased, increasedLast };
+      }
     </script>
-</body>
+  </body>
 </html>

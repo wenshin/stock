@@ -1,9 +1,8 @@
-const fs = require('fs');
-const request = require('request');
-const {requestGBK, throttle} = require('./util');
-const cheerio = require('cheerio');
-const iconv = require('iconv-lite');
-
+const fs = require("fs");
+const request = require("request");
+const cheerio = require("cheerio");
+const iconv = require("iconv-lite");
+const conceptIds = require("./concept-id.json");
 
 // let $ = cheerio.load('<h2 class="title">Hello world</h2>')
 
@@ -17,34 +16,69 @@ const headers = {
   // 'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4',
   // Host: 'd.10jqka.com.cn',
   // Referer: 'http://stock.10jqka.com.cn/market.shtml',
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
 };
-
 
 function fetchPage(url) {
   return new Promise((resolve, reject) => {
-    request({
-      // url: 'http://q.10jqka.com.cn/gn/',
-      url,
-      encoding: null,
-      headers
-    }, (err, res, body) => {
-      if (err) reject(err);
-      resolve(parseData(body));
-    });
+    request(
+      {
+        // url: 'http://q.10jqka.com.cn/gn/',
+        url,
+        encoding: null,
+        headers,
+      },
+      (err, res, body) => {
+        if (err) reject(err);
+        resolve(parseData(body));
+      }
+    );
+  });
+}
+
+function fetchConceptCLID(url) {
+  return new Promise((resolve, reject) => {
+    request(
+      {
+        // url: 'http://q.10jqka.com.cn/gn/',
+        url,
+        encoding: null,
+        headers,
+      },
+      (err, res, body) => {
+        if (err) reject(err);
+        if (!body) {
+          console.log("WARNING no body");
+          return null;
+        }
+
+        const bodystr = iconv.decode(body, "gbk");
+        const $ = cheerio.load(bodystr);
+        let clid = "";
+        $(".board-hq h3 span").each((idx, elem) => {
+          // http://q.10jqka.com.cn/gn/detail/code/301416/
+          const textNode = elem.children[0];
+          if (textNode && textNode.type === "text") {
+            clid = textNode.data;
+          }
+        });
+        resolve(clid);
+      }
+    );
   });
 }
 
 function parseData(bodyBuf) {
   if (!bodyBuf) {
-    console.log('WARNING no body');
+    console.log("WARNING no body");
     return null;
   }
 
-  const body = iconv.decode(bodyBuf, 'gbk');
+  const body = iconv.decode(bodyBuf, "gbk");
   const $ = cheerio.load(body);
   const list = [];
-  $('.cate_items a').each((idx, elem) => {
+  $(".cate_items a").each((idx, elem) => {
     // http://q.10jqka.com.cn/gn/detail/code/301416/
     if (!elem.attribs.href) return;
 
@@ -52,24 +86,48 @@ function parseData(bodyBuf) {
     const id = idMatch && idMatch[1];
     const textNode = elem.children[0];
     let name;
-    if (textNode && textNode.type === 'text') {
+    if (textNode && textNode.type === "text") {
       name = textNode.data;
     }
     if (name && id) {
-      list.push({name, id, href: elem.attribs.href});
+      list.push({ name, id, href: elem.attribs.href });
     }
   });
   return list;
 }
 
+// 补全 concepts 元数据
+async function fetchConcepts(concepts) {
+  const data = [];
+  for (const c of concepts) {
+    if (!conceptIds.find((i) => i.id === c.id)) {
+      const clid = await fetchConceptCLID(
+        `http://q.10jqka.com.cn/gn/detail/code/${c.id}/`
+      );
+      if (clid) {
+        data.push({ ...c, clid });
+      } else {
+        console.log("err update concept id", c);
+      }
+    }
+  }
+  console.log(JSON.stringify(data, null, 2));
+}
+
+// 补充 concepts 数据
+// fetchConcepts(require("./ths-base.json").concepts);
+
 (function () {
   Promise.all([
-    fetchPage('http://q.10jqka.com.cn/gn/'),
-    fetchPage('http://q.10jqka.com.cn/thshy/')
-  ]).then(([concepts, industries]) => {
-    fs.writeFileSync(
-      'ths-base.json',
-      JSON.stringify({concepts, industries}, null, 2)
-    );
-  }).catch(err => console.log(err))
-})()
+    fetchPage("http://q.10jqka.com.cn/gn/"),
+    fetchPage("http://q.10jqka.com.cn/thshy/"),
+  ])
+    .then(([concepts, industries]) => {
+      fs.writeFileSync(
+        "ths-base.json",
+        JSON.stringify({ concepts, industries }, null, 2)
+      );
+      fetchConcepts(concepts);
+    })
+    .catch((err) => console.log(err));
+})();
