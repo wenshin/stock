@@ -3,7 +3,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const iconv = require("iconv-lite");
 const conceptIds = require("./concept-id.json");
-
+const { sleep } = require("./util");
 // let $ = cheerio.load('<h2 class="title">Hello world</h2>')
 
 // http://q.10jqka.com.cn/gn/ 获取概念板块 ID 列表
@@ -104,6 +104,7 @@ async function fetchConcepts(concepts) {
       const clid = await fetchConceptCLID(
         `http://q.10jqka.com.cn/gn/detail/code/${c.id}/`
       );
+      await sleep();
       if (clid) {
         data.push({ ...c, clid });
       } else {
@@ -111,7 +112,7 @@ async function fetchConcepts(concepts) {
       }
     }
   }
-  console.log(JSON.stringify(data, null, 2));
+  console.log("补充概念", JSON.stringify(data, null, 2));
 }
 
 // 补充 concepts 数据

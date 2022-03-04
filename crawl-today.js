@@ -4,7 +4,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const iconv = require("iconv-lite");
 const moment = require("moment");
-const { requestGBK } = require("./util");
+const { requestGBK, sleep } = require("./util");
 const { INDEXES } = require("./consts");
 const conceptIds = require("./concept-id.json");
 
@@ -44,12 +44,6 @@ function appendConceptFile(dateStr, data) {
       err && console.log(err);
     }
   );
-}
-
-function sleep(time = 2) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time * 1000);
-  });
 }
 
 async function fillAllConcept(dateStr, existIds) {
@@ -237,6 +231,7 @@ function fetchData(page, dateStr) {
 //     .catch((err) => console.error(err));
 // }
 
+// 先跑一边 crawl-base-info 并把需要补充的数据添加到 concept-id.json 中
 crawlIndustryToday()
   .then(() => crawlIndexToday())
   .then(() => fetchConceptToday());

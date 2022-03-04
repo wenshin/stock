@@ -42,6 +42,8 @@ const SORT_TYPES = {
   continuouslyDecreasedDays: "连续下跌天数降序",
 };
 
+const ENLARGE_YAXIS = 10;
+
 type SortType = keyof typeof SORT_TYPES;
 
 function App() {
@@ -204,11 +206,11 @@ function App() {
   );
 }
 
-function changeDataStartDate(data: IndexData["data"], newLength: number) {
-  const newData = data.slice(data.length - newLength + 1);
-  const baseValue = data[data.length - newLength] || 0;
+function changeDataStartDate(data: IndexData["data"], showDays: number) {
+  const newData = getDataByDays(data, showDays);
+  const baseValue = data[data.length - showDays] || 0;
   // FIXME: 放大 10 倍增加区分度
-  const result = newData.map((v) => (v - baseValue) * 10);
+  const result = newData.map((v) => (v - baseValue) * ENLARGE_YAXIS);
   result.unshift(0);
   return result;
 }
@@ -234,23 +236,23 @@ function renderChartWithSelectedData(
         //     .join("<br />");
         // },
         formatter(item: { seriesName: string; data: number }) {
-          return `${item.seriesName} ${(item.data / 10).toFixed(2)}%`;
+          return `${item.seriesName} ${(item.data / ENLARGE_YAXIS).toFixed(
+            2
+          )}%`;
         },
       },
       legend: {
         data: data.map((v: { name: string }) => v.name),
       },
       xAxis: {
-        data: showDays
-          ? group.dates.slice(group.dates.length - showDays)
-          : group.dates,
+        data: showDays ? getDataByDays(group.dates, showDays) : group.dates,
       },
       yAxis: [
         {
           type: "value",
           scale: true,
           axisLabel: {
-            formatter: "{value} %",
+            formatter: (v: number) => v / ENLARGE_YAXIS + " %",
           },
           splitLine: {
             show: false,
@@ -262,6 +264,10 @@ function renderChartWithSelectedData(
         return {
           name: v.name,
           type: "line",
+          itemStyle: {
+            // @ts-ignore
+            color: colors[v.name],
+          },
           lineStyle: {
             width: isIndexes ? 2 : 1,
             type: isIndexes || idx < 5 ? "solid" : "dashed",
@@ -354,6 +360,10 @@ function getIncreaseInfo(data: IndexData["data"], continousDays: number) {
     data[data.length - 1] - data[data.length - continousDays - 1];
   const increasedLast = data[data.length - 1] - data[data.length - 2];
   return { type, increased, increasedLast };
+}
+
+function getDataByDays<T>(data: T[], days: number) {
+  return data.slice(Math.max(0, data.length - days));
 }
 
 export default App;
