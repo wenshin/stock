@@ -80,14 +80,16 @@ function App() {
       renderChartWithSelectedData(
         echartRef.current,
         group,
-        selectedData.concat(group.indexes),
+        selectedData.concat(
+          getTopTenOfContinuouslyIncreased(group.indexes, sortType, days)
+        ),
         days
         // {
         //   title: { text: "混合指标" },
         // }
       );
     }
-  }, [group, selectedData, days]);
+  }, [group, sortType, selectedData, days]);
 
   return (
     <div className="App" style={{ padding: "20px" }}>
@@ -211,7 +213,6 @@ function changeDataStartDate(data: IndexData["data"], showDays: number) {
   const baseValue = data[data.length - showDays] || 0;
   // FIXME: 放大 10 倍增加区分度
   const result = newData.map((v) => (v - baseValue) * ENLARGE_YAXIS);
-  result.unshift(0);
   return result;
 }
 
@@ -235,10 +236,20 @@ function renderChartWithSelectedData(
         //     )
         //     .join("<br />");
         // },
-        formatter(item: { seriesName: string; data: number }) {
-          return `${item.seriesName} ${(item.data / ENLARGE_YAXIS).toFixed(
-            2
-          )}%`;
+        formatter(item: {
+          seriesIndex: number;
+          dataIndex: number;
+          name: string;
+          seriesName: string;
+          data: number;
+        }) {
+          const newData = getDataByDays(data[item.seriesIndex].data, showDays);
+          const d =
+            newData[item.dataIndex] - newData[Math.max(0, item.dataIndex - 1)];
+          return `${item.name} ${item.seriesName}<br/>
+          累计 ${(item.data / ENLARGE_YAXIS).toFixed(2)}%<br/>
+          今日 ${d.toFixed(2)}%<br/>
+          `;
         },
       },
       legend: {
