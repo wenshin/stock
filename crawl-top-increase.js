@@ -13,12 +13,13 @@ const headers = {
   "Cache-Control": "no-cache",
   Connection: "keep-alive",
   Cookie:
-    "user=MDpteF8zMDU0ODczOTg6Ok5vbmU6NTAwOjMxNTQ4NzM5ODo3LDExMTExMTExMTExLDQwOzQ0LDExLDQwOzYsMSw0MDs1LDEsNDA7MSwxMDEsNDA7MiwxLDQwOzMsMSw0MDs1LDEsNDA7OCwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSw0MDsxMDIsMSw0MDoxNjo6OjMwNTQ4NzM5ODoxNjQ2MTQ1NDAxOjo6MTQ0NjYxNTY2MDo2MDQ4MDA6MDoxMWY2YTJhZTVhZjM0NzAzNWRhN2FkNjc0MjBkNjMzMDk6ZGVmYXVsdF80OjA%3D; userid=305487398; u_name=mx_305487398; escapename=mx_305487398; ticket=64ac0844b866523bab05211bea89dc4a; user_status=0; utk=e113b5fd65c303fce88312380733ac7f; spversion=20130314; searchGuide=sg; historystock=001234%7C*%7C301218%7C*%7C301078%7C*%7C300584; Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1646149540,1646149573,1646465252,1646674242; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1646674242; v=A5KX-fkjJD5sLlh21byzrHfB5VNxo5bkyKaLNVzovxkxRTzNRDPmTZg32JAv",
+    "spversion=20130314; searchGuide=sg; Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1646149540,1646149573,1646465252,1646674242; __utma=156575163.1199353689.1646834129.1646834129.1646834129.1; __utmc=156575163; __utmz=156575163.1646834129.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); historystock=300003%7C*%7C605011%7C*%7C001227%7C*%7C301201%7C*%7C001296; log=; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1647871330; v=AxcSigy8OUgPM73a0dZ-jyrWoIBkXO96xTtvYWlHMqVMtDl-cSx7DtUA__56",
   "X-Requested-With": "XMLHttpRequest",
   "User-Agent":
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
 };
 
+let retrying = false;
 function fetchTopIncreasedPage(page = 1) {
   const url = `http://q.10jqka.com.cn/index/index/board/all/field/zdf/order/desc/page/${page}/ajax/1/`;
   return new Promise((resolve, reject) => {
@@ -37,6 +38,10 @@ function fetchTopIncreasedPage(page = 1) {
 
         const bodystr = iconv.decode(body, "gbk");
         const stocks = parseTopIncreasedBody(bodystr);
+        if (stocks.length === 0 && !retrying) {
+          console.log("请求失败", bodystr);
+          console.log(res.headers);
+        }
         console.log("第", page, "页", stocks.length);
         resolve(stocks);
       }
@@ -89,12 +94,15 @@ function parseTopIncreasedBody(body) {
       }
       tdIdx++;
     }
-    if (info.increased >= 7) {
+    if (info.increased >= 9) {
       stocks.push(info);
     }
   });
   return stocks;
 }
+
+exports.parseTopIncreasedBody = parseTopIncreasedBody;
+exports.fetchStockConcepts = fetchStockConcepts;
 
 function getText(elem) {
   let textNode = elem.children[0];
@@ -173,16 +181,18 @@ function saveFile(stock) {
 
 async function fetchTopIncreased() {
   let isFinish = false;
-  let page = 1;
+  let page = 7;
+  let stocks = [];
   while (!isFinish) {
-    const stocks = await fetchTopIncreasedPage(page);
-    await fetchStockConcepts(stocks);
-    if (stocks.length < 20) {
+    const newStocks = await fetchTopIncreasedPage(page);
+    stocks = stocks.concat(newStocks);
+    if (newStocks.length < 20) {
       isFinish = true;
     }
     page++;
     await sleep(2);
   }
+  await fetchStockConcepts(stocks);
 }
 
 fetchTopIncreased();
