@@ -54,6 +54,9 @@ function genData(dir, infos) {
             increase: 0,
           };
         }
+        if (item.id === "885927") {
+          console.log("11111", item);
+        }
         const unique = unsorted[item.id] || {
           id: item.id,
           name: item.name,
@@ -76,4 +79,4 @@ function genData(dir, infos) {
 
 genData("indexes", require("../../consts").INDEXES);
 genData("industry", require("../../ths-base.json").industries);
-genData("concept", require("../../ths-base.json").concepts);
+genData("concept", require("../../concept-id.json"));

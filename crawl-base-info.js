@@ -113,6 +113,7 @@ async function fetchConcepts(concepts) {
     }
   }
   console.log("补充概念", JSON.stringify(data, null, 2));
+  return data;
 }
 
 // 补充 concepts 数据
@@ -124,11 +125,15 @@ async function fetchConcepts(concepts) {
     fetchPage("http://q.10jqka.com.cn/thshy/"),
   ])
     .then(([concepts, industries]) => {
+      return fetchConcepts(concepts).then((add) => {
+        return [concepts.concat(add), industries];
+      });
+    })
+    .then(([concepts, industries]) => {
       fs.writeFileSync(
         "ths-base.json",
         JSON.stringify({ concepts, industries }, null, 2)
       );
-      fetchConcepts(concepts);
     })
     .catch((err) => console.log(err));
 })();

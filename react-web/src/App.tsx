@@ -1,69 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Select, Space, Table, Modal } from "antd";
+import { Select, Space, Table, Modal, Input } from "antd";
+import {
+  IndexData,
+  DataGroup,
+  TopDataGroup,
+  ColumnItemType,
+} from "./data/types";
+import {
+  DATE_LIMIT,
+  ENLARGE_YAXIS,
+  TypeLabels,
+  SortType,
+  SORT_TYPES,
+  colors,
+} from "./data/consts";
+import { getTopData, renderTopChart } from "./data/top";
+import { changeDataStartDate, getDataByDays } from "./data/utils";
 import "./App.css";
-
-interface DataGroup {
-  dates: string[];
-  indexes: IndexData[];
-  industry: IndexData[];
-  concept: IndexData[];
-}
-
-interface TopDataGroup {
-  dates: string[];
-  concepts: IndexData[];
-}
-
-interface Stock {
-  url: string;
-  code: string;
-  name: string;
-  increased: number;
-  exchange: number;
-  moneyVolumn: string;
-  PE: string;
-  concepts: string;
-  ipcDate: string;
-}
-
-interface IndexData {
-  id: string;
-  name: string;
-  data: number[];
-  stocks: Stock[][];
-}
-
-const TypeLabels = {
-  // indexes: "指数对比",
-  all: "全部",
-  concept: "概念对比",
-  industry: "行业对比",
-};
-
-const colors = {
-  上证: "#f5222d",
-  深证: "#7cb305",
-  创业板: "#1890ff",
-  科创50: "#52c41a",
-  中小板: "#08979c",
-  沪深300: "#d48806",
-  上证50: "#531dab",
-  中证500: "#d46b08",
-};
-
-const SORT_TYPES = {
-  lastIncreased: "⬆️最近日涨幅降序",
-  periodIncreased: "⬆️时间段内涨幅降序",
-  continuouslyIncreasedDays: "⬆️连续上涨天数降序",
-  lastDecreased: "最近日跌幅降序",
-  periodDecreased: "时间段内跌幅降序",
-  continuouslyDecreasedDays: "连续下跌天数降序",
-};
-
-const ENLARGE_YAXIS = 10;
-const DATE_LIMIT = 30;
-
-type SortType = keyof typeof SORT_TYPES;
+import { TopIncreasedTable } from "./TopIncreasedTable";
 
 function App() {
   const [type, setType] = useState<{
@@ -164,7 +118,7 @@ function App() {
             <Select.Option value={15}>最近15天</Select.Option>
             <Select.Option value={20}>最近20天</Select.Option>
             <Select.Option value={30}>最近30天</Select.Option>
-            <Select.Option value={60}>最近90天</Select.Option>
+            <Select.Option value={60}>最近60天</Select.Option>
             <Select.Option value={90}>最近90天</Select.Option>
           </Select>
           <Select
@@ -254,6 +208,11 @@ function App() {
           ref={topChartRef}
           style={{ width: "100%", height: "650px", marginTop: "20px" }}
         ></div>
+        <TopIncreasedTable
+          topRenderData={topRenderData}
+          days={days}
+          sortType={sortType}
+        />
         <Table
           dataSource={topRenderData.data}
           columns={[
@@ -272,78 +231,6 @@ function App() {
       </Space>
     </div>
   );
-}
-
-interface ColumnItemType {
-  date: string;
-  key: string;
-  "1": string;
-  "2": string;
-  "3": string;
-  "4": string;
-  "5": string;
-  "6": string;
-  "7": string;
-  "8": string;
-  "9": string;
-  "10": string;
-  stocks: { [key: string]: Stock[] };
-}
-
-function getTopData(topData?: TopDataGroup) {
-  if (!topData) return { data: [] };
-  const seriesdata: { [key: string]: IndexData } = {};
-  const data: ColumnItemType[] = [];
-  for (let i = 0; i < topData.dates.length; i++) {
-    const date = topData.dates[i];
-    topData.concepts.sort((x, y) => {
-      if (x.data[i] > y.data[i]) {
-        return -1;
-      }
-      if (x.data[i] < y.data[i]) {
-        return 1;
-      }
-      const sx = x.stocks[i] || [];
-      const sy = x.stocks[i] || [];
-      if (
-        sx.reduce((prev, cur) => cur.increased + prev, 0) >
-        sy.reduce((prev, cur) => cur.increased + prev, 0)
-      ) {
-        return -1;
-      }
-      if (
-        sx.reduce((prev, cur) => cur.increased + prev, 0) <
-        sy.reduce((prev, cur) => cur.increased + prev, 0)
-      ) {
-        return 1;
-      }
-      return 0;
-    });
-    const item = { key: date, date, stocks: {} } as ColumnItemType;
-    // 涨停图表数据
-    for (let j = 0; j < DATE_LIMIT; j++) {
-      const c = topData.concepts[j];
-      seriesdata[c.id] = seriesdata[c.id] || {
-        id: c.id,
-        name: c.name,
-        data: new Array(topData.dates.length).fill(0),
-      };
-      seriesdata[c.id].data[i] = c.data[i];
-      // @ts-ignore
-      item[j + 1] = `${c.name}（${c.data[i]}）`;
-      item.stocks[j + 1] = c.stocks[i];
-    }
-    data.push(item);
-  }
-  data.sort((a, b) => (a > b ? 1 : -1));
-  const series: {
-    dates: string[];
-    series: IndexData[];
-  } = {
-    dates: topData.dates,
-    series: Object.values(seriesdata),
-  };
-  return { data, series };
 }
 
 function renderColumnItem(key: string, v: string, item: ColumnItemType) {
@@ -388,14 +275,6 @@ function renderColumnItem(key: string, v: string, item: ColumnItemType) {
       {v}
     </div>
   );
-}
-
-function changeDataStartDate(data: IndexData["data"], showDays: number) {
-  const newData = getDataByDays(data, showDays);
-  const baseValue = data[data.length - showDays] || 0;
-  // FIXME: 放大 10 倍增加区分度
-  const result = newData.map((v) => (v - baseValue) * ENLARGE_YAXIS);
-  return result;
 }
 
 function renderChartWithSelectedData(
@@ -484,128 +363,6 @@ function renderChartWithSelectedData(
   chart.setOption(option);
 }
 
-function renderTopChart(
-  chart: echarts.Chart,
-  group: { dates: string[]; series: IndexData[] },
-  showDays: number,
-  sortType: SortType,
-  options?: any
-) {
-  const seriesData = group.series.sort((a, b) => {
-    const ad = getDataByDays(a.data, showDays);
-    const bd = getDataByDays(b.data, showDays);
-    let adays = 0;
-    let bdays = 0;
-    let asum = 0;
-    let bsum = 0;
-    ad.forEach((i) => {
-      adays += Math.min(1, i);
-      asum += i;
-    });
-    bd.forEach((i) => {
-      bdays += Math.min(1, i);
-      bsum += i;
-    });
-    if (sortType === "continuouslyIncreasedDays") {
-      // 涨停天数降序
-      if (adays > bdays) {
-        return -1;
-      }
-      if (bdays > adays) {
-        return 1;
-      }
-    }
-    if (sortType === "lastIncreased") {
-      // 涨停天数降序
-      if (lastValue(ad) > lastValue(bd)) {
-        return -1;
-      }
-      if (lastValue(ad) < lastValue(bd)) {
-        return 1;
-      }
-    }
-    // 涨停股票数降序
-    if (asum > bsum) {
-      return -1;
-    }
-    if (asum < bsum) {
-      return 1;
-    }
-    return 0;
-  });
-  // 指定图表的配置项和数据
-  const option = Object.assign(
-    {
-      tooltip: {
-        // trigger: "axis",
-        // formatter(items: { seriesName: string; data: number }[]) {
-        //   return items
-        //     .map(
-        //       (item) =>
-        //         `${item.seriesName} ${item.data ? item.data.toFixed(2) : 0}%`
-        //     )
-        //     .join("<br />");
-        // },
-        formatter(item: {
-          seriesIndex: number;
-          dataIndex: number;
-          name: string;
-          seriesName: string;
-          data: number;
-        }) {
-          return `${item.name} ${item.seriesName}<br/>
-          涨停数 ${item.data / ENLARGE_YAXIS}`;
-        },
-      },
-      legend: {
-        data: group.series.map((v) => v.name),
-      },
-      xAxis: {
-        data: showDays ? getDataByDays(group.dates, showDays) : group.dates,
-      },
-      yAxis: [
-        {
-          type: "value",
-          scale: true,
-          axisLabel: {
-            formatter: (v: number) => v / ENLARGE_YAXIS,
-          },
-          splitLine: {
-            show: false,
-          },
-        },
-      ],
-      series: seriesData.map((v, idx) => {
-        return {
-          name: v.name,
-          type: "line",
-          itemStyle: {
-            // @ts-ignore
-            color: colors[v.name],
-          },
-          lineStyle: {
-            width: 1,
-            type: idx < 5 ? "solid" : "dashed",
-            // @ts-ignore
-            color: colors[v.name],
-          },
-          emphasis: {
-            focus: "self",
-            lineStyle: {
-              width: 2,
-              type: "solid",
-            },
-          },
-          data: showDays ? changeDataStartDate(v.data, showDays) : v.data,
-        };
-      }),
-    },
-    options
-  );
-  chart.clear();
-  chart.setOption(option);
-}
-
 function getData(data: IndexData[], sortType: SortType, continousDays = 2) {
   return getTopTenOfContinuouslyIncreased(data, sortType, continousDays);
 }
@@ -662,7 +419,7 @@ function getTopTenOfContinuouslyIncreased(
 
 function getIncreaseInfo(data: IndexData["data"], continousDays: number) {
   let type = "";
-  for (let i = 1; i <= continousDays + 1; i++) {
+  for (let i = 1; i <= continousDays; i++) {
     const cur = data.length - i;
     const last = data.length - i - 1;
     if (data[cur] > data[last]) {
@@ -671,18 +428,9 @@ function getIncreaseInfo(data: IndexData["data"], continousDays: number) {
       type += "0";
     }
   }
-  const increased =
-    data[data.length - 1] - data[data.length - continousDays - 1];
+  const increased = data[data.length - 1] - data[data.length - continousDays];
   const increasedLast = data[data.length - 1] - data[data.length - 2];
   return { type, increased, increasedLast };
-}
-
-function getDataByDays<T>(data: T[], days: number) {
-  return data.slice(Math.max(0, data.length - days));
-}
-
-function lastValue<T>(arr: T[]) {
-  return arr[arr.length - 1];
 }
 
 export default App;
