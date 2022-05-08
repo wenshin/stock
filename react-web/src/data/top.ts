@@ -97,11 +97,11 @@ export function getTopStocks(
   return stocks.sort((a, b) => {
     return conditions([
       getLatestDate(b.topIncreasedDates) - getLatestDate(a.topIncreasedDates),
-      getLatestDate(b.topIncreasedDates, 1) -
-        getLatestDate(a.topIncreasedDates, 1),
-      getLatestDate(b.topIncreasedDates, 2) -
-        getLatestDate(a.topIncreasedDates, 2),
-      (b.topIncreasedDates?.size || 0) - (a.topIncreasedDates?.size || 0),
+      getLatestDate(a.topIncreasedDates, 1) -
+        getLatestDate(b.topIncreasedDates, 1),
+      getLatestDate(a.topIncreasedDates, 2) -
+        getLatestDate(b.topIncreasedDates, 2),
+      (a.topIncreasedDates?.size || 0) - (b.topIncreasedDates?.size || 0),
       (b.hotConceopts?.size || 0) - (a.hotConceopts?.size || 0),
     ]);
   });

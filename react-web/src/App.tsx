@@ -402,13 +402,24 @@ function getTopTenOfContinuouslyIncreased(
       sortType === "continuouslyIncreasedDays" ||
       sortType === "continuouslyDecreasedDays"
     ) {
-      const desc = sortType === "continuouslyIncreasedDays" ? -1 : 1;
-      if (aInfo.type > bInfo.type) {
-        // 连续上涨天数降序
-        return desc;
-      } else if (aInfo.type < bInfo.type) {
-        // 连续上涨天数降序
-        return -desc;
+      const adays = getDays(aInfo.type);
+      const bdays = getDays(bInfo.type);
+      if (sortType === "continuouslyIncreasedDays") {
+        if (adays.increased > bdays.increased) {
+          // 降序
+          return -1;
+        } else if (adays.increased < bdays.increased) {
+          // 升序
+          return 1;
+        }
+      } else {
+        if (adays.decreased > bdays.decreased) {
+          // 降序
+          return -1;
+        } else if (adays.decreased < bdays.decreased) {
+          // 升序
+          return 1;
+        }
       }
       return 0;
     }
@@ -431,6 +442,28 @@ function getIncreaseInfo(data: IndexData["data"], continousDays: number) {
   const increased = data[data.length - 1] - data[data.length - continousDays];
   const increasedLast = data[data.length - 1] - data[data.length - 2];
   return { type, increased, increasedLast };
+}
+
+function getDays(type: string): { increased: number; decreased: number } {
+  let increased = 0;
+  let decreased = 0;
+  for (let i = 0; i < type.length; i++) {
+    if (increased && type[i] === "0") {
+      continue;
+    }
+    if (decreased && type[i] === "1") {
+      continue;
+    }
+    if (type[i] === "1") {
+      increased++;
+    } else {
+      decreased++;
+    }
+  }
+  return {
+    increased,
+    decreased,
+  };
 }
 
 export default App;
