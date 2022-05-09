@@ -37,3 +37,4 @@ jspm_packages
 .node_repl_history
 web/data.json
 react-web/public/data.json
+react-web/public/top-increased.json

@@ -20,6 +20,7 @@ glob(`../../top-increase/*.json`, (err, files) => {
     const { name: date } = path.parse(filepath);
     dates.push(date);
     for (const info of data) {
+      const isIncreased = info.increased > 0;
       const concepts = info.concepts.split(/[,，]\s*/);
       concepts.forEach((c) => {
         if (!c) return;
@@ -35,7 +36,8 @@ glob(`../../top-increase/*.json`, (err, files) => {
           stocks: [],
         };
         conceptsByName[c].data[dates.length - 1] =
-          (conceptsByName[c].data[dates.length - 1] || 0) + 1;
+          (conceptsByName[c].data[dates.length - 1] || 0) +
+          (isIncreased ? 1 : -1);
         conceptsByName[c].stocks[dates.length - 1] =
           conceptsByName[c].stocks[dates.length - 1] || [];
         conceptsByName[c].stocks[dates.length - 1].push(info);

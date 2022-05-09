@@ -6,26 +6,31 @@ const iconv = require("iconv-lite");
 const { sleep } = require("./util");
 
 // eslint-disable-next-line no-undef
-const randomKey = process.argv[2];
+const randomKeys = process.argv[2].split(",");
 // eslint-disable-next-line no-undef
-const startPage = Number(process.argv[3]);
+const startPage = Number(process.argv[3]) || 1;
 // eslint-disable-next-line no-undef
 const isAsc = process.argv[4] === "asc";
 // eslint-disable-next-line no-undef
-console.log("args", process.argv, startPage, randomKey, isAsc);
+console.log("args", process.argv, startPage, randomKeys, isAsc);
 
-const headers = {
-  Referer: "http://q.10jqka.com.cn/",
-  Accept: "text/html, */*; q=0.01",
-  // "Accept-Encoding": "gzip, deflate",
-  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-  "Cache-Control": "no-cache",
-  Connection: "keep-alive",
-  Cookie: `Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1650550922; spversion=20130314; searchGuide=sg; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1651076403; historystock=600406%7C*%7C301013%7C*%7C603066%7C*%7C600062%7C*%7C000639; v=${randomKey}`,
-  "X-Requested-With": "XMLHttpRequest",
-  "User-Agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
-};
+let randomKeyCursor = 0;
+function getHeaders() {
+  const randomKey = randomKeys[randomKeyCursor];
+  const headers = {
+    Referer: "http://q.10jqka.com.cn/",
+    Accept: "text/html, */*; q=0.01",
+    // "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+    Cookie: `Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1650550922; spversion=20130314; searchGuide=sg; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1651076403; historystock=600406%7C*%7C301013%7C*%7C603066%7C*%7C600062%7C*%7C000639; v=${randomKey}`,
+    "X-Requested-With": "XMLHttpRequest",
+    "User-Agent":
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
+  };
+  return headers;
+}
 
 let retrying = false;
 
@@ -42,7 +47,7 @@ function fetchTopIncreasedPage(page = 1) {
       {
         url,
         encoding: null,
-        headers,
+        headers: getHeaders(),
       },
       (err, res, body) => {
         if (err) reject(err);
@@ -54,10 +59,21 @@ function fetchTopIncreasedPage(page = 1) {
         const bodystr = iconv.decode(body, "gbk");
         const stocks = parseTopIncreasedBody(bodystr);
         if (stocks.length === 0 && !retrying) {
-          console.log("请求失败", bodystr);
+          console.log(`第 ${page} 页，请求失败`, bodystr);
           console.log(res.headers);
+          if (
+            bodystr.includes(
+              'window.location.href="//q.10jqka.com.cn/index/index/board/all/field/zdf'
+            ) &&
+            randomKeyCursor < randomKeys.length - 1
+          ) {
+            randomKeyCursor++;
+            console.log(`第 ${page} 页，更换 token 重试`);
+            fetchTopIncreasedPage(page).then(resolve, reject);
+            return;
+          }
         }
-        console.log("第", page, "页", stocks.length);
+        console.log("第", page, "页，", stocks.length);
         resolve(stocks);
       }
     );
@@ -146,7 +162,7 @@ async function fetchStockConcepts(stocks) {
         {
           url,
           encoding: null,
-          headers,
+          headers: getHeaders(),
         },
         (err, res, body) => {
           if (err) reject(err);
