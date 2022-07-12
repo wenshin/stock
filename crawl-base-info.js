@@ -63,6 +63,11 @@ function fetchConceptCLID(url) {
             clid = textNode.data;
           }
         });
+        if (!clid) {
+          $("#clid").each((idx, elem) => {
+            clid = elem.attribs.value;
+          });
+        }
         resolve(clid);
       }
     );

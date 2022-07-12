@@ -286,6 +286,11 @@
       "href": "http://q.10jqka.com.cn/gn/detail/code/308572/"
     },
     {
+      "name": "钒电池",
+      "id": "301174",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/301174/"
+    },
+    {
       "name": "分拆上市意愿",
       "id": "308590",
       "href": "http://q.10jqka.com.cn/gn/detail/code/308590/"
@@ -344,6 +349,11 @@
       "name": "高铁",
       "id": "301518",
       "href": "http://q.10jqka.com.cn/gn/detail/code/301518/"
+    },
+    {
+      "name": "高压快充",
+      "id": "308806",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/308806/"
     },
     {
       "name": "共同富裕示范区",
@@ -644,6 +654,11 @@
       "name": "机器人概念",
       "id": "300816",
       "href": "http://q.10jqka.com.cn/gn/detail/code/300816/"
+    },
+    {
+      "name": "机器视觉",
+      "id": "301258",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/301258/"
     },
     {
       "name": "基因测序",
@@ -1361,6 +1376,11 @@
       "href": "http://q.10jqka.com.cn/gn/detail/code/300382/"
     },
     {
+      "name": "虚拟电厂",
+      "id": "308761",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/308761/"
+    },
+    {
       "name": "虚拟数字人",
       "id": "308794",
       "href": "http://q.10jqka.com.cn/gn/detail/code/308794/"
@@ -1674,6 +1694,30 @@
       "name": "5G",
       "id": "300843",
       "href": "http://q.10jqka.com.cn/gn/detail/code/300843/"
+    },
+    {
+      "name": "钒电池",
+      "id": "301174",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/301174/",
+      "clid": "886003"
+    },
+    {
+      "name": "高压快充",
+      "id": "308806",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/308806/",
+      "clid": "886001"
+    },
+    {
+      "name": "机器视觉",
+      "id": "301258",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/301258/",
+      "clid": "886002"
+    },
+    {
+      "name": "虚拟电厂",
+      "id": "308761",
+      "href": "http://q.10jqka.com.cn/gn/detail/code/308761/",
+      "clid": "886004"
     }
   ],
   "industries": [

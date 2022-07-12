@@ -2650,5 +2650,29 @@
     "name": "一体化压铸",
     "id": "308984",
     "href": "http://q.10jqka.com.cn/gn/detail/code/308984/"
+  },
+  {
+    "name": "钒电池",
+    "id": "301174",
+    "href": "http://q.10jqka.com.cn/gn/detail/code/301174/",
+    "clid": "886003"
+  },
+  {
+    "name": "高压快充",
+    "id": "308806",
+    "href": "http://q.10jqka.com.cn/gn/detail/code/308806/",
+    "clid": "886001"
+  },
+  {
+    "name": "机器视觉",
+    "id": "301258",
+    "href": "http://q.10jqka.com.cn/gn/detail/code/301258/",
+    "clid": "886002"
+  },
+  {
+    "name": "虚拟电厂",
+    "id": "308761",
+    "href": "http://q.10jqka.com.cn/gn/detail/code/308761/",
+    "clid": "886004"
   }
 ]
